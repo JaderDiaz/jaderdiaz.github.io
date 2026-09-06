@@ -212,7 +212,7 @@ const es: SiteContent = {
     ],
     ctaEyebrow: '08 / tu caso',
     ctaTitle: '¿Necesitas algo que no está en la lista?',
-    ctaDescription: 'Cuéntame el problema y te digo si soy la persona indicada →',
+    ctaDescription: 'Cuéntame el problema y te asesoro →',
   },
   stack: {
     eyebrow: '02 — STACK',
@@ -474,7 +474,7 @@ const en: SiteContent = {
     ],
     ctaEyebrow: '08 / your case',
     ctaTitle: 'Something else in mind?',
-    ctaDescription: 'Tell me the problem and I will tell you if I am the right person →',
+    ctaDescription: "Tell me the problem — I'll advise you →",
   },
   stack: {
     eyebrow: '02 — STACK',
