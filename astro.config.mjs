@@ -6,6 +6,11 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   site: 'https://jaderdiaz.com',
   trailingSlash: 'always',
+  // Auto-injects a CSP meta tag (script/style hashes computed from the
+  // actual build output, including the one inline theme script) on every page.
+  security: {
+    csp: true,
+  },
   // The site is static-first; only the /api/contact endpoint opts out of
   // prerendering (see src/pages/api/contact.ts). Deployed as a Cloudflare
   // Worker (static assets + this one server route), see wrangler.jsonc.
