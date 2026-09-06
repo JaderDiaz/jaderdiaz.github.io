@@ -8,8 +8,15 @@ export default defineConfig({
   trailingSlash: 'always',
   // Auto-injects a CSP meta tag (script/style hashes computed from the
   // actual build output, including the one inline theme script) on every page.
+  // Cloudflare's own Web Analytics beacon (injected at the edge when enabled
+  // in the dashboard) needs an explicit allowance, since it isn't part of
+  // our build and can't get an auto-computed hash.
   security: {
-    csp: true,
+    csp: {
+      scriptDirective: {
+        resources: ["'self'", 'https://static.cloudflareinsights.com'],
+      },
+    },
   },
   // The site is static-first; only the /api/contact endpoint opts out of
   // prerendering (see src/pages/api/contact.ts). Deployed as a Cloudflare

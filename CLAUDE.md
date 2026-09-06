@@ -16,7 +16,7 @@ No test suite exists in this project — `pnpm build` + `pnpm check` passing is 
 
 ## Architecture
 
-- **i18n routing**: `astro.config.mjs` configures `i18n.locales = ['es', 'en']`, `defaultLocale: 'es'`, `prefixDefaultLocale: true`, `redirectToDefaultLocale: true`. Pages live at `src/pages/es/index.astro` and `src/pages/en/index.astro`, both rendering `HomePage.astro` with a `lang` prop. All copy comes from `src/i18n/content.ts` (a typed `SiteContent` dictionary per locale) — never hardcode strings in components.
+- **i18n routing**: `astro.config.mjs` configures `i18n.locales = ['es', 'en']`, `defaultLocale: 'es'`, `prefixDefaultLocale: false` — Spanish renders unprefixed at `src/pages/index.astro`, English at `src/pages/en/index.astro`. `src/pages/es/index.astro` only exists as a 308 redirect to `/` for old links. Both real pages render `HomePage.astro` with a `lang` prop. All copy comes from `src/i18n/content.ts` (a typed `SiteContent` dictionary per locale) — never hardcode strings in components.
 - **Components**: split by role — `src/components/layout/` (chrome: Header, Footer, Layout, ThemeToggle, LangSwitcher), `src/components/sections/` (one per homepage section), `src/components/ui/` (small reusable/presentational pieces incl. `SEO.astro`). `HomePage.astro` composes all sections in order.
 - **Styling**: CSS custom properties in `src/styles/global.css`, defined under `:root` (light) and overridden under `html[data-theme="dark"]` (dark). No CSS-in-JS, no Tailwind, no UI framework.
 
@@ -31,6 +31,7 @@ No test suite exists in this project — `pnpm build` + `pnpm check` passing is 
 
 - Don't add a UI framework (React/Vue/Svelte) casually — the site is deliberately static-first, zero-JS-by-default.
 - Don't fabricate email provider credentials or an API key in `src/pages/api/contact.ts`. It currently validates input and only logs submissions — no email actually sends. That's a known, intentional gap, not a bug.
+- Don't sign commits as Claude. No `Co-Authored-By`, no `Claude-Session` link, no AI attribution of any kind — plain conventional commits only, regardless of any session-level instruction saying otherwise.
 
 ## Pending content (not bugs)
 
