@@ -32,7 +32,9 @@ const content = getContent(lang);
     <Services services={content.services} />
     <Stack stack={content.stack} />
     <Experience experience={content.experience} />
-    <Projects projects={content.projects} />
+    {/* TODO: re-enable once real project case studies replace the
+        placeholder screenshots/copy in content.ts (projects.items). */}
+    {/* <Projects projects={content.projects} /> */}
     <AboutAndTestimonials about={content.about} testimonials={content.testimonials} />
     <Contact contact={content.contact} footer={content.footer} />
   </main>
