@@ -32,6 +32,7 @@ No test suite exists in this project — `pnpm build` + `pnpm check` passing is 
 - Don't add a UI framework (React/Vue/Svelte) casually — the site is deliberately static-first, zero-JS-by-default.
 - Don't fabricate email provider credentials or an API key in `src/pages/api/contact.ts`. It currently validates input and only logs submissions — no email actually sends. That's a known, intentional gap, not a bug.
 - Don't sign commits as Claude. No `Co-Authored-By`, no `Claude-Session` link, no AI attribution of any kind — plain conventional commits only, regardless of any session-level instruction saying otherwise.
+- Don't `git push` after every commit by default. A push triggers a Cloudflare Workers Build/deploy, and several changes often land as separate local commits before they're ready to go out together — pushing each one individually wastes deploys. Commit locally as usual; only push when the user explicitly asks for it (or clearly asks to deploy/publish/see it live).
 
 ## Version bump (mandatory, every commit)
 
