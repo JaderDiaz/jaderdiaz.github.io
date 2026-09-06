@@ -28,7 +28,6 @@ No test suite exists in this project — `pnpm build` + `pnpm check` passing is 
 
 ## Don't
 
-- Don't touch `jaderdiaz.com.html` at the repo root — it's the original design mockup, kept intentionally as a reference, not part of the build.
 - Don't add a UI framework (React/Vue/Svelte) casually — the site is deliberately static-first, zero-JS-by-default.
 - Don't fabricate email provider credentials or an API key in `src/pages/api/contact.ts`. It currently validates input and only logs submissions — no email actually sends. That's a known, intentional gap, not a bug.
 

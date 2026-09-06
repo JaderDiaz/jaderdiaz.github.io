@@ -23,7 +23,7 @@ pnpm check     # astro check — TS + template diagnostics
   - `src/components/ui/` — small, reusable, presentational pieces (SectionHeading, SEO, cards, badges, PlaceholderImage)
 - Theming is done entirely with CSS custom properties defined in `src/styles/global.css` under `:root` and overridden under `html[data-theme="dark"]`. No CSS-in-JS, no Tailwind.
 - All copy lives in `src/i18n/content.ts` as a typed `SiteContent` object per locale (`es`, `en`). Do not hardcode user-facing strings in components — read them from `content`.
-- `src/i18n/content.ts` mirrors `jaderdiaz.com.html` (the design mockup) verbatim — don't invent new copy independently of that source without being asked.
+- `src/i18n/content.ts` holds all copy for both locales — don't invent new copy without being asked.
 
 ## Testing / verification
 
@@ -48,7 +48,6 @@ There is no CI configured — these two commands are the full verification bar.
 
 ## Constraints
 
-- Do not touch `jaderdiaz.com.html` at the project root — it is the original design reference/mockup, kept intentionally for comparison. It is not part of the build.
 - Do not add a UI framework (React, Vue, Svelte, etc.) unless explicitly asked — this site is deliberately static-first with zero client JS by default.
 - Do not fabricate email provider credentials or wire a fake API key into `src/pages/api/contact.ts`. That route currently only validates input and logs the submission (no email is sent) — this is a known, intentional gap, not a bug to silently "fix" with made-up credentials.
 
