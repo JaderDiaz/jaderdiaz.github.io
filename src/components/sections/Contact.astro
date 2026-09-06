@@ -30,10 +30,19 @@ const { contact, footer } = Astro.props;
   .contact-section {
     position: relative;
     overflow: hidden;
-    background: #0F1722;
+    background-color: #0F1722;
+    /* A real textured fill (not just the radar sweep on top of a flat
+       color) — a slow-drifting dot-grid across the whole section, same
+       family as the footer's own grid. */
+    background-image: radial-gradient(rgba(127, 166, 217, .16) 1px, transparent 1px);
+    background-size: 26px 26px;
+    animation: contact-section-grid-drift 45s linear infinite;
     color: #F2F3F1;
     padding: clamp(56px, 7vw, 84px) clamp(20px, 4vw, 48px);
     scroll-margin-top: 70px;
+  }
+  @keyframes contact-section-grid-drift {
+    to { background-position: 26px 26px; }
   }
   .contact-section__grid {
     display: grid;
@@ -64,6 +73,9 @@ const { contact, footer } = Astro.props;
     to { rotate: 360deg; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .contact-section__scan { animation: none; }
+    .contact-section,
+    .contact-section__scan {
+      animation: none;
+    }
   }
 </style>
