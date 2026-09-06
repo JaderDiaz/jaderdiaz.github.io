@@ -2,7 +2,7 @@
 import type { SiteContent } from '../../i18n/content';
 import SectionHeading from '../ui/SectionHeading.astro';
 import StackColumn from '../ui/StackColumn.astro';
-import TechFieldBackground from '../ui/TechFieldBackground.astro';
+import NetworkGridBackground from '../ui/NetworkGridBackground.astro';
 
 interface Props {
   stack: SiteContent['stack'];
@@ -11,7 +11,7 @@ const { stack } = Astro.props;
 ---
 
 <section id="stack" class="section section--alt stack-section">
-  <TechFieldBackground />
+  <NetworkGridBackground />
   <div class="wrap stack-section__content">
     <SectionHeading eyebrow={stack.eyebrow} />
     <div class="stack__columns">

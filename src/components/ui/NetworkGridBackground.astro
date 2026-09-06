@@ -1,0 +1,79 @@
+---
+// Decorative pulsing node-grid — a different flavor of background motion
+// from TechFieldBackground, themed around infrastructure/networking for
+// the Stack section. Pure CSS, no JS, no inline styles (CSP-safe). Place
+// inside a `position: relative; overflow: hidden;` container; give the
+// real content `position: relative; z-index: 1` so it stays above this.
+---
+
+<div class="network-grid" aria-hidden="true">
+  <span class="network-grid__node network-grid__node--1"></span>
+  <span class="network-grid__node network-grid__node--2"></span>
+  <span class="network-grid__node network-grid__node--3"></span>
+  <span class="network-grid__node network-grid__node--4"></span>
+  <span class="network-grid__node network-grid__node--5"></span>
+  <span class="network-grid__line network-grid__line--1"></span>
+  <span class="network-grid__line network-grid__line--2"></span>
+</div>
+
+<style>
+  .network-grid {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .network-grid__node {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.3;
+    animation: network-node-pulse 3.6s ease-in-out infinite;
+  }
+  .network-grid__node--1 { top: 14%; left: 8%;  animation-delay: 0s; }
+  .network-grid__node--2 { top: 68%; left: 18%; animation-delay: -0.8s; }
+  .network-grid__node--3 { top: 30%; left: 92%; animation-delay: -1.6s; }
+  .network-grid__node--4 { top: 78%; left: 86%; animation-delay: -2.4s; }
+  .network-grid__node--5 { top: 46%; left: 50%; animation-delay: -3.2s; }
+
+  @keyframes network-node-pulse {
+    0%, 100% { opacity: 0.3; box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 15%, transparent); }
+  }
+
+  .network-grid__line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.16;
+    transform-origin: left center;
+  }
+  .network-grid__line--1 {
+    top: 22%;
+    left: 8%;
+    width: 42%;
+    transform: rotate(4deg);
+    animation: network-line-drift 22s ease-in-out infinite;
+  }
+  .network-grid__line--2 {
+    top: 62%;
+    left: 30%;
+    width: 56%;
+    transform: rotate(-3deg);
+    animation: network-line-drift 28s ease-in-out infinite reverse;
+  }
+  @keyframes network-line-drift {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.22; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .network-grid__node,
+    .network-grid__line {
+      animation: none;
+    }
+  }
+</style>

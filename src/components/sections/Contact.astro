@@ -12,6 +12,7 @@ const { contact, footer } = Astro.props;
 ---
 
 <section id="contacto" class="contact-section">
+  <div class="contact-section__scan" aria-hidden="true"></div>
   <div class="wrap contact-section__grid">
     <ContactInfo contact={contact} />
     <ContactForm form={contact.form} />
@@ -27,6 +28,8 @@ const { contact, footer } = Astro.props;
 <style>
   /* This section is always dark, regardless of the site theme. */
   .contact-section {
+    position: relative;
+    overflow: hidden;
     background: #0F1722;
     color: #F2F3F1;
     padding: clamp(56px, 7vw, 84px) clamp(20px, 4vw, 48px);
@@ -37,5 +40,30 @@ const { contact, footer } = Astro.props;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: clamp(32px, 5vw, 64px);
     align-items: start;
+  }
+
+  /* A slow radar-style sweep behind the closing CTA — the fourth distinct
+     background treatment (hero: drifting grid + glows, services: floating
+     glyphs, stack: pulsing node-grid, about: soft blobs), so the motion
+     doesn't feel like the same trick copy-pasted down the page. Colors are
+     hardcoded to match this section's own always-dark palette rather than
+     the theme-aware --accent token. */
+  .contact-section__scan {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: min(900px, 140vw);
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0deg, rgba(127, 166, 217, 0.16) 40deg, transparent 90deg);
+    animation: contact-scan-rotate 16s linear infinite;
+  }
+  @keyframes contact-scan-rotate {
+    to { rotate: 360deg; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .contact-section__scan { animation: none; }
   }
 </style>

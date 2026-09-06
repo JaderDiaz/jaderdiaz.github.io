@@ -1,0 +1,55 @@
+---
+// Soft floating blurred glows — the same technique as the hero's, packaged
+// as a reusable background for sections that want a warmer, more organic
+// feel than the code-glyph or node-grid variants. Pure CSS, no JS, no
+// inline styles (CSP-safe). Place inside a `position: relative; overflow:
+// hidden;` container; give the real content `position: relative; z-index:
+// 1` so it stays above this.
+---
+
+<div class="glow-field" aria-hidden="true">
+  <span class="glow-field__blob glow-field__blob--a"></span>
+  <span class="glow-field__blob glow-field__blob--b"></span>
+</div>
+
+<style>
+  .glow-field {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .glow-field__blob {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    opacity: 0.18;
+    filter: blur(6px);
+  }
+  .glow-field__blob--a {
+    top: -10%;
+    left: -8%;
+    width: 60%;
+    aspect-ratio: 1;
+    animation: glow-field-float-a 24s ease-in-out infinite;
+  }
+  .glow-field__blob--b {
+    bottom: -14%;
+    right: -10%;
+    width: 50%;
+    aspect-ratio: 1;
+    animation: glow-field-float-b 30s ease-in-out infinite;
+  }
+  @keyframes glow-field-float-a {
+    0%, 100% { translate: 0 0; scale: 1; }
+    50% { translate: 30px 20px; scale: 1.1; }
+  }
+  @keyframes glow-field-float-b {
+    0%, 100% { translate: 0 0; scale: 1; }
+    50% { translate: -25px -20px; scale: 1.08; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glow-field__blob { animation: none; }
+  }
+</style>

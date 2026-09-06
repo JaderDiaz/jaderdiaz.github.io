@@ -3,7 +3,7 @@ import type { SiteContent } from '../../i18n/content';
 import SectionHeading from '../ui/SectionHeading.astro';
 import TestimonialItem from '../ui/TestimonialItem.astro';
 import AboutBlock from './AboutBlock.astro';
-import TechFieldBackground from '../ui/TechFieldBackground.astro';
+import GlowFieldBackground from '../ui/GlowFieldBackground.astro';
 
 interface Props {
   about: SiteContent['about'];
@@ -13,7 +13,7 @@ const { about, testimonials } = Astro.props;
 ---
 
 <section id="sobre-mi" class="section about-section">
-  <TechFieldBackground />
+  <GlowFieldBackground />
   <div class="wrap about-testimonials">
     <AboutBlock about={about} />
     <div>
