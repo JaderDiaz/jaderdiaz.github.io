@@ -50,15 +50,9 @@ const version = `${versionDate}.${BUILD_NUMBER}`;
     border-top: 1px solid rgba(242, 243, 241, .15);
     font-size: 11px;
     color: rgba(242, 243, 241, .5);
-    /* An actual textured fill (not just the line/dots on top) — a faint
-       dot-grid, so the strip reads as patterned even in a still frame. */
-    background-image: radial-gradient(rgba(127, 166, 217, .35) 1px, transparent 1px);
-    background-size: 18px 18px;
-    background-position: 0 0;
-    animation: site-footer-grid-drift 30s linear infinite;
-  }
-  @keyframes site-footer-grid-drift {
-    to { background-position: 18px 18px; }
+    /* No background texture of its own — it sits inside .contact-section,
+       which already provides the dot-grid fill for the whole section.
+       Adding a second one here just doubled up and looked noisy. */
   }
   /* A thin "signal" sweeping along the top border, plus a couple of
      faintly pulsing dots — the footer's own small piece of motion,
@@ -94,7 +88,6 @@ const version = `${versionDate}.${BUILD_NUMBER}`;
     50% { opacity: 0.6; transform: scale(1.4); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .site-footer,
     .site-footer::before,
     .site-footer__scan-dot {
       animation: none;
