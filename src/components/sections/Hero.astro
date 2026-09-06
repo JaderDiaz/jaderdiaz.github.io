@@ -9,6 +9,8 @@ const { hero } = Astro.props;
 ---
 
 <section id="top" class="hero">
+  <div class="hero__glow hero__glow--a" aria-hidden="true"></div>
+  <div class="hero__glow hero__glow--b" aria-hidden="true"></div>
   <div class="hero__grid wrap">
     <div>
       <div data-hero-in class="hero__badge mono">
@@ -29,17 +31,67 @@ const { hero } = Astro.props;
 
 <style>
   .hero {
+    position: relative;
+    overflow: hidden;
     background-image: linear-gradient(var(--grid) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid) 1px, transparent 1px);
     background-size: 80px 80px;
     border-bottom: 1px solid var(--line);
+    animation: hero-grid-drift 40s linear infinite;
   }
+  @keyframes hero-grid-drift {
+    to { background-position: 80px 80px, 80px 80px; }
+  }
+
+  /* Soft floating accent glows — decorative only, a hint of motion behind
+     the grid so the background doesn't read as flat/static. */
+  .hero__glow {
+    position: absolute;
+    z-index: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    opacity: .10;
+    filter: blur(10px);
+    pointer-events: none;
+  }
+  .hero__glow--a {
+    top: -120px;
+    right: -80px;
+    width: 480px;
+    height: 480px;
+    animation: hero-glow-float-a 26s ease-in-out infinite;
+  }
+  .hero__glow--b {
+    bottom: -160px;
+    left: -100px;
+    width: 420px;
+    height: 420px;
+    animation: hero-glow-float-b 32s ease-in-out infinite;
+  }
+  @keyframes hero-glow-float-a {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-30px, 40px) scale(1.08); }
+  }
+  @keyframes hero-glow-float-b {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -30px) scale(1.05); }
+  }
+
   .hero__grid {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: clamp(32px, 5vw, 56px);
     padding: clamp(48px, 7vw, 80px) clamp(20px, 4vw, 48px);
     align-items: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero,
+    .hero__glow {
+      animation: none;
+    }
   }
 
   @media (max-width: 640px) {
