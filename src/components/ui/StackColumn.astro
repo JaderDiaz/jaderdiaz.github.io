@@ -28,4 +28,30 @@ const { label, items } = Astro.props;
     font-size: 15px;
     color: var(--muted);
   }
+
+  /* Subtle multi-layer parallax: alternating columns drift up/down at
+     different rates as the section scrolls past. Pure CSS, no JS. */
+  @supports (animation-timeline: view()) {
+    .stack-column {
+      animation: linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+    .stack-column:nth-child(5n + 1) { animation-name: stack-parallax-a; }
+    .stack-column:nth-child(5n + 2) { animation-name: stack-parallax-b; }
+    .stack-column:nth-child(5n + 3) { animation-name: stack-parallax-a; }
+    .stack-column:nth-child(5n + 4) { animation-name: stack-parallax-b; }
+    .stack-column:nth-child(5n + 5) { animation-name: stack-parallax-a; }
+  }
+  @keyframes stack-parallax-a {
+    from { transform: translateY(18px); }
+    to { transform: translateY(-18px); }
+  }
+  @keyframes stack-parallax-b {
+    from { transform: translateY(-14px); }
+    to { transform: translateY(14px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stack-column { animation: none; }
+  }
 </style>

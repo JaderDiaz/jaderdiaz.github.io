@@ -27,7 +27,38 @@ const { experience } = Astro.props;
 
 <style>
   .experience-timeline__list {
+    position: relative;
     border-top: 1px solid var(--line);
+  }
+  /* A vertical line that "draws itself" down the timeline as you scroll
+     through it — pure CSS (animation-timeline: view()), no JS. Falls back
+     to a plain static border in browsers without view-timeline support. */
+  .experience-timeline__list::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--accent);
+    transform-origin: top;
+  }
+  @supports (animation-timeline: view()) {
+    .experience-timeline__list::before {
+      transform: scaleY(0);
+      animation: experience-line-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 70%;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .experience-timeline__list::before {
+        transform: scaleY(1);
+        animation: none;
+      }
+    }
+  }
+  @keyframes experience-line-draw {
+    to { transform: scaleY(1); }
   }
   .experience-timeline__badges {
     display: flex;

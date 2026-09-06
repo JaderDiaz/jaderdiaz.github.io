@@ -31,4 +31,24 @@ const { index, title, description } = Astro.props;
     line-height: 1.6;
     color: var(--muted);
   }
+
+  /* Scroll-linked scale/settle-in, layered on top of the JS fade reveal and
+     the [data-lift] hover effect. Animates the standalone `scale`/`rotate`
+     properties (not the `transform` shorthand) specifically so it composes
+     with — instead of overriding — the hover-lift's `transform: translateY()`
+     transition on the same element. Pure CSS, no JS. */
+  @supports (animation-timeline: view()) {
+    .service-card {
+      animation: service-card-scroll-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .service-card { animation: none; }
+    }
+  }
+  @keyframes service-card-scroll-in {
+    from { scale: 0.92; rotate: -1deg; }
+    to { scale: 1; rotate: 0deg; }
+  }
 </style>

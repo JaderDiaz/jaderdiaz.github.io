@@ -2,6 +2,7 @@
 import type { SiteContent } from '../../i18n/content';
 import SectionHeading from '../ui/SectionHeading.astro';
 import ServiceGrid from './ServiceGrid.astro';
+import TechFieldBackground from '../ui/TechFieldBackground.astro';
 
 interface Props {
   services: SiteContent['services'];
@@ -9,8 +10,9 @@ interface Props {
 const { services } = Astro.props;
 ---
 
-<section id="servicios" class="section">
-  <div class="wrap">
+<section id="servicios" class="section services-section">
+  <TechFieldBackground />
+  <div class="wrap services-section__content">
     <SectionHeading eyebrow={services.eyebrow} />
     <p class="services-intro">{services.intro}</p>
     <ServiceGrid services={services} />
@@ -18,6 +20,14 @@ const { services } = Astro.props;
 </section>
 
 <style>
+  .services-section {
+    position: relative;
+    overflow: hidden;
+  }
+  .services-section__content {
+    position: relative;
+    z-index: 1;
+  }
   .services-intro {
     max-width: 640px;
     margin: -18px 0 34px;
