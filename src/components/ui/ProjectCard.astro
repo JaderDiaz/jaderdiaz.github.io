@@ -12,7 +12,7 @@ const { title, description, tech, tags, screenshotCaption } = Astro.props;
 ---
 
 <article data-reveal data-lift data-tags={tags} class="project-card">
-  <PlaceholderImage caption={screenshotCaption} aspectRatio="16/10" class="project-card__image" />
+  <PlaceholderImage caption={screenshotCaption} aspectRatio="wide" class="project-card__image" />
   <div class="project-card__body">
     <h3>{title}</h3>
     <p class="project-card__description">{description}</p>

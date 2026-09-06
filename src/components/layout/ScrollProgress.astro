@@ -8,24 +8,40 @@
     left: 0;
     bottom: -1px;
     height: 2px;
-    width: 0%;
+    width: 100%;
     background: var(--accent);
-    transition: width .12s linear;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  /* Pure-CSS scroll-driven fill — avoids JS mutating the style attribute
+     (blocked by our strict style-src CSP, since hashes don't cover dynamic
+     inline-style writes). Degrades to a static unfilled bar where
+     animation-timeline isn't supported yet, instead of failing/erroring. */
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      animation: scroll-progress-fill linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+  @keyframes scroll-progress-fill {
+    to {
+      transform: scaleX(1);
+    }
   }
   @media (prefers-reduced-motion: reduce) {
-    .scroll-progress { transition: none; }
+    .scroll-progress {
+      animation: none;
+    }
   }
 </style>
 
 <script>
-  const bar = document.querySelector<HTMLElement>('[data-progress]');
+  // Only toggles a class (not the style attribute), so it isn't affected by
+  // the style-src CSP restriction that blocks direct inline-style writes.
   const header = document.querySelector<HTMLElement>('header');
 
   function onScroll() {
-    const h = document.documentElement;
-    const max = h.scrollHeight - h.clientHeight;
-    if (bar) bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
-    if (header) header.style.boxShadow = h.scrollTop > 12 ? '0 6px 24px rgba(15,23,34,.10)' : 'none';
+    header?.classList.toggle('is-scrolled', window.scrollY > 12);
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });

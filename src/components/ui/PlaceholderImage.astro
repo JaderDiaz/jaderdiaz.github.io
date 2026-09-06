@@ -2,17 +2,20 @@
 interface Props {
   caption: string;
   label?: string;
-  aspectRatio?: string; // e.g. "1" or "16/10"
+  aspectRatio?: 'square' | 'wide'; // square = 1:1, wide = 16:10
   rounded?: boolean;
   class?: string;
 }
 
-const { caption, label, aspectRatio = '1', class: className = '' } = Astro.props;
+const { caption, label, aspectRatio = 'square', class: className = '' } = Astro.props;
 ---
 
 <div
-  class:list={['placeholder-image', className]}
-  style={`aspect-ratio:${aspectRatio}`}
+  class:list={[
+    'placeholder-image',
+    aspectRatio === 'wide' ? 'placeholder-image--wide' : 'placeholder-image--square',
+    className,
+  ]}
   role="img"
   aria-label={caption}
 >
@@ -28,6 +31,12 @@ const { caption, label, aspectRatio = '1', class: className = '' } = Astro.props
     display: flex;
     align-items: flex-end;
     padding: 12px;
+  }
+  .placeholder-image--square {
+    aspect-ratio: 1;
+  }
+  .placeholder-image--wide {
+    aspect-ratio: 16 / 10;
   }
   .placeholder-image__label {
     position: absolute;
