@@ -1,9 +1,9 @@
 # jaderdiaz.com
 
-**Jader Luis Diaz** — Ingeniero de sistemas · Desarrollador fullstack
+**Jader Luis Diaz E.** — Ingeniero de sistemas · Lidero equipos y proyectos de tecnología
 📍 Medellín, Colombia · Remoto · Disponible para proyectos
 
-Construyo aplicaciones a medida de punta a punta: el backend, la interfaz y la infraestructura donde corre. Más de diecisiete años trabajando con equipos y clientes que necesitan que el software funcione y se pueda mantener.
+Lidero equipos y proyectos de tecnología de punta a punta: entiendo lo que el negocio necesita, lo traduzco en arquitectura y hago que el software se construya, funcione y se mantenga en el tiempo. Amplia trayectoria combinando visión estratégica con ejecución técnica directa.
 
 🔗 [jaderdiaz.com](https://jaderdiaz.com) · [LinkedIn](https://linkedin.com/in/jlde412) · [GitHub](https://github.com/JaderDiaz) · 📧 info@jaderdiaz.com
 

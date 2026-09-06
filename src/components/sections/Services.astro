@@ -12,6 +12,17 @@ const { services } = Astro.props;
 <section id="servicios" class="section">
   <div class="wrap">
     <SectionHeading eyebrow={services.eyebrow} />
+    <p class="services-intro">{services.intro}</p>
     <ServiceGrid services={services} />
   </div>
 </section>
+
+<style>
+  .services-intro {
+    max-width: 640px;
+    margin: -18px 0 34px;
+    font-size: clamp(16px, 1.4vw, 19px);
+    line-height: 1.6;
+    color: var(--muted);
+  }
+</style>

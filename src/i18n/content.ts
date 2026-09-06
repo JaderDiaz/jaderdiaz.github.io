@@ -66,6 +66,7 @@ export interface SiteContent {
   };
   services: {
     eyebrow: string;
+    intro: string;
     items: ServiceItem[];
     ctaEyebrow: string;
     ctaTitle: string;
@@ -130,9 +131,9 @@ export interface SiteContent {
 
 const es: SiteContent = {
   meta: {
-    title: 'Jader Luis Diaz — Ingeniero de sistemas · Desarrollador fullstack',
+    title: 'Jader Luis Diaz E. — Ingeniero de sistemas · Lidero equipos y proyectos de tecnología',
     description:
-      'Construyo aplicaciones a medida de punta a punta: el backend, la interfaz y la infraestructura donde corre. Más de diecisiete años de experiencia.',
+      'Lidero equipos y proyectos de tecnología de punta a punta, traduciendo necesidades de negocio en arquitectura y software que funciona. Amplia trayectoria combinando visión estratégica con ejecución técnica directa.',
   },
   nav: {
     servicios: 'servicios',
@@ -147,16 +148,16 @@ const es: SiteContent = {
   themeToggle: { light: 'oscuro', dark: 'claro' },
   hero: {
     availability: 'Disponible para proyectos · Medellín, CO · Remoto',
-    name: 'Jader Luis Diaz',
-    tagline: 'Ingeniero de sistemas · Desarrollador fullstack',
+    name: 'Jader Luis Diaz E.',
+    tagline: 'Ingeniero de sistemas · Lidero equipos y proyectos de tecnología',
     description:
-      'Construyo aplicaciones a medida de punta a punta: el backend, la interfaz y la infraestructura donde corre. Más de diecisiete años trabajando con equipos y clientes que necesitan que el software funcione y se pueda mantener.',
+      'Lidero equipos y proyectos de tecnología de punta a punta: entiendo lo que tu negocio necesita, lo traduzco en arquitectura y hago que el software se construya, funcione y se mantenga en el tiempo. Amplia trayectoria combinando visión estratégica con ejecución técnica directa.',
     ctaPrimary: 'Hablemos de tu proyecto →',
     ctaSecondary: 'Ver mi experiencia',
     photoLabel: 'foto_perfil.jpg',
     photoCaption: 'encuadre: hombros y cabeza · mirada a cámara · fondo liso',
     stats: [
-      { label: 'experiencia', value: '17+ años' },
+      { label: 'experiencia', value: 'Amplia trayectoria' },
       { label: 'rol actual', value: 'Fullstack · Línea Directa' },
       { label: 'certificación', value: 'Scrum Master' },
       { label: 'idiomas', value: 'ES nativo · EN B2' },
@@ -164,6 +165,7 @@ const es: SiteContent = {
   },
   services: {
     eyebrow: '01 — SERVICIOS',
+    intro: 'No solo escribo código: lidero el proyecto completo para que tu idea llegue a producción y se sostenga en el tiempo.',
     items: [
       {
         index: '01',
@@ -321,8 +323,8 @@ const es: SiteContent = {
   about: {
     eyebrow: '05 — SOBRE MÍ',
     paragraphs: [
-      'Ingeniero de Sistemas apasionado por construir software robusto, adaptarme a nuevas industrias y empoderar tecnológicamente a mis clientes.',
-      'He consolidado mi carrera evolucionando desde la programación pura hasta la gestión de equipos, resolviendo retos técnicos en áreas de negocio muy diversas (sistemas contables, transcodificación de video, infraestructura en la nube). Mi filosofía de trabajo prioriza la comunicación clara y el código sostenible; por ello, mi regla de oro es entregar siempre productos estructurados y rigurosamente documentados, garantizando que el proyecto pueda crecer y evolucionar de manera autónoma sin depender de mí.',
+      'Ingeniero de Sistemas apasionado por liderar proyectos y equipos, adaptarme a nuevas industrias y convertir las ideas de mis clientes en soluciones tecnológicas reales.',
+      'He consolidado mi carrera evolucionando desde la programación pura hasta el liderazgo técnico y la gestión de equipos, resolviendo retos de negocio muy diversos (sistemas contables, transcodificación de video, infraestructura en la nube). Sostengo ese liderazgo con una regla de oro: entregar siempre productos bien estructurados y documentados, para que cada proyecto crezca de forma autónoma sin depender de mí.',
     ],
     softSkills: [
       'Liderazgo',
@@ -382,7 +384,7 @@ const es: SiteContent = {
     },
   },
   footer: {
-    copyright: '© 2026 Jader Luis Diaz',
+    copyright: '© 2026 Jader L. Diaz E.',
     madeWithPrefix: 'Hecho con',
     madeWithSuffix: 'en Medellín, Colombia',
     versionLabel: 'versión',
@@ -391,9 +393,9 @@ const es: SiteContent = {
 
 const en: SiteContent = {
   meta: {
-    title: 'Jader Luis Diaz — Systems engineer · Fullstack developer',
+    title: 'Jader Luis Diaz E. — Systems engineer · Leading technology teams and projects',
     description:
-      'I build custom applications end to end: the backend, the interface and the infrastructure they run on. More than seventeen years of experience.',
+      'I lead technology teams and projects end to end, translating business needs into architecture and software that works. Extensive track record combining strategic vision with hands-on technical execution.',
   },
   nav: {
     servicios: 'services',
@@ -408,16 +410,16 @@ const en: SiteContent = {
   themeToggle: { light: 'dark', dark: 'light' },
   hero: {
     availability: 'Available for projects · Medellín, CO · Remote',
-    name: 'Jader Luis Diaz',
-    tagline: 'Systems engineer · Fullstack developer',
+    name: 'Jader Luis Diaz E.',
+    tagline: 'Systems engineer · Leading technology teams and projects',
     description:
-      'I build custom applications end to end: the backend, the interface and the infrastructure they run on. More than seventeen years working with teams and clients who need software that works and can be maintained.',
+      'I lead technology teams and projects end to end: I understand what the business needs, translate it into architecture, and make sure the software gets built, works, and stays maintainable. Extensive track record combining strategic vision with hands-on technical execution.',
     ctaPrimary: "Let's talk about your project →",
     ctaSecondary: 'See my experience',
     photoLabel: 'foto_perfil.jpg',
     photoCaption: 'framing: head and shoulders · look at camera · plain background',
     stats: [
-      { label: 'experience', value: '17+ years' },
+      { label: 'experience', value: 'Extensive track record' },
       { label: 'current role', value: 'Fullstack · Línea Directa' },
       { label: 'certification', value: 'Scrum Master' },
       { label: 'languages', value: 'ES native · EN B2' },
@@ -425,6 +427,7 @@ const en: SiteContent = {
   },
   services: {
     eyebrow: '01 — SERVICES',
+    intro: "I don't just write code: I lead the whole project so your idea reaches production and holds up over time.",
     items: [
       {
         index: '01',
@@ -582,8 +585,8 @@ const en: SiteContent = {
   about: {
     eyebrow: '05 — ABOUT',
     paragraphs: [
-      'A systems engineer passionate about building robust software, adapting to new industries, and empowering my clients through technology.',
-      'I have built my career by evolving from pure programming to team management, solving technical challenges in a wide variety of business areas (accounting systems, video transcoding, cloud infrastructure). My work philosophy prioritizes clear communication and sustainable code; therefore, my golden rule is to always deliver well-structured and thoroughly documented products, ensuring that the project can grow and evolve independently without relying on me.',
+      'A systems engineer passionate about leading projects and teams, adapting to new industries, and turning my clients\' ideas into real technology solutions.',
+      'I have built my career evolving from pure programming to technical leadership and team management, solving business challenges across a wide range of industries (accounting systems, video transcoding, cloud infrastructure). I back that leadership with one golden rule: always deliver well-structured, thoroughly documented products, so every project can grow independently without relying on me.',
     ],
     softSkills: [
       'Leadership',
@@ -643,7 +646,7 @@ const en: SiteContent = {
     },
   },
   footer: {
-    copyright: '© 2026 Jader Luis Diaz',
+    copyright: '© 2026 Jader L. Diaz E.',
     madeWithPrefix: 'Made with',
     madeWithSuffix: 'in Medellín, Colombia',
     versionLabel: 'version',

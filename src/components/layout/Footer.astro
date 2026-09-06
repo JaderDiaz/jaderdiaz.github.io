@@ -1,4 +1,6 @@
 ---
+import { BUILD_NUMBER } from '../../version';
+
 interface Props {
   copyright: string;
   madeWithPrefix: string;
@@ -7,10 +9,12 @@ interface Props {
 }
 const { copyright, madeWithPrefix, madeWithSuffix, versionLabel } = Astro.props;
 
-// Build-time version: the site's own "release date". Regenerated on every
-// production build, so it always reflects when the deployed content was last updated.
+// Build-time version: the site's own "release date" plus a manually
+// incremented build number (see src/version.ts) so multiple same-day
+// deploys are still distinguishable.
 const buildDate = new Date();
-const version = buildDate.toISOString().slice(0, 10).replace(/-/g, '.');
+const versionDate = buildDate.toISOString().slice(0, 10).replace(/-/g, '.');
+const version = `${versionDate}.${BUILD_NUMBER}`;
 ---
 
 <div class="site-footer mono">
