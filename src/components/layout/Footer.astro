@@ -18,6 +18,8 @@ const version = `${versionDate}.${BUILD_NUMBER}`;
 ---
 
 <div class="site-footer mono">
+  <span class="site-footer__scan-dot site-footer__scan-dot--1" aria-hidden="true"></span>
+  <span class="site-footer__scan-dot site-footer__scan-dot--2" aria-hidden="true"></span>
   <span class="site-footer__made">
     <span>{copyright}</span>
     <span class="site-footer__sep" aria-hidden="true">·</span>
@@ -35,6 +37,8 @@ const version = `${versionDate}.${BUILD_NUMBER}`;
 
 <style>
   .site-footer {
+    position: relative;
+    overflow: hidden;
     max-width: 1400px;
     margin: 56px auto 0;
     display: flex;
@@ -46,6 +50,45 @@ const version = `${versionDate}.${BUILD_NUMBER}`;
     border-top: 1px solid rgba(242, 243, 241, .15);
     font-size: 11px;
     color: rgba(242, 243, 241, .5);
+  }
+  /* A thin "signal" sweeping along the top border, plus a couple of
+     faintly pulsing dots — the footer's own small piece of motion,
+     scaled to fit a strip this thin rather than reusing the bigger
+     per-section background treatments. */
+  .site-footer::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    height: 1px;
+    width: 160px;
+    background: linear-gradient(90deg, transparent, #7FA6D9, transparent);
+    animation: site-footer-scan 7s linear infinite;
+  }
+  @keyframes site-footer-scan {
+    from { transform: translateX(-160px); }
+    to { transform: translateX(calc(100% + 160px)); }
+  }
+  .site-footer__scan-dot {
+    position: absolute;
+    top: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #7FA6D9;
+    animation: site-footer-dot-pulse 4s ease-in-out infinite;
+  }
+  .site-footer__scan-dot--1 { left: 22%; animation-delay: -1.2s; }
+  .site-footer__scan-dot--2 { left: 68%; animation-delay: -2.6s; }
+  @keyframes site-footer-dot-pulse {
+    0%, 100% { opacity: 0.15; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.4); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-footer::before,
+    .site-footer__scan-dot {
+      animation: none;
+    }
   }
   .site-footer__made {
     display: flex;
