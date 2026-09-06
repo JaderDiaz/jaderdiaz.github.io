@@ -2,6 +2,7 @@
 import type { SiteContent } from '../../i18n/content';
 import SectionHeading from '../ui/SectionHeading.astro';
 import StackColumn from '../ui/StackColumn.astro';
+import TechFieldBackground from '../ui/TechFieldBackground.astro';
 
 interface Props {
   stack: SiteContent['stack'];
@@ -9,8 +10,9 @@ interface Props {
 const { stack } = Astro.props;
 ---
 
-<section id="stack" class="section section--alt">
-  <div class="wrap">
+<section id="stack" class="section section--alt stack-section">
+  <TechFieldBackground />
+  <div class="wrap stack-section__content">
     <SectionHeading eyebrow={stack.eyebrow} />
     <div class="stack__columns">
       {stack.columns.map((c) => <StackColumn label={c.label} items={c.items} />)}
@@ -19,6 +21,14 @@ const { stack } = Astro.props;
 </section>
 
 <style>
+  .stack-section {
+    position: relative;
+    overflow: hidden;
+  }
+  .stack-section__content {
+    position: relative;
+    z-index: 1;
+  }
   .stack__columns {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

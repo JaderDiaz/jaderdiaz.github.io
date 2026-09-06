@@ -28,11 +28,14 @@ const { experience } = Astro.props;
 <style>
   .experience-timeline__list {
     position: relative;
+    padding-left: 22px;
     border-top: 1px solid var(--line);
   }
   /* A vertical line that "draws itself" down the timeline as you scroll
-     through it — pure CSS (animation-timeline: view()), no JS. Falls back
-     to a plain static border in browsers without view-timeline support. */
+     through it — pure CSS (animation-timeline: view()), no JS. Sits in its
+     own left gutter (padding-left above) so it never overlaps the date
+     column text. Falls back to a plain static line in browsers without
+     view-timeline support. */
   .experience-timeline__list::before {
     content: '';
     position: absolute;
@@ -48,7 +51,12 @@ const { experience } = Astro.props;
       transform: scaleY(0);
       animation: experience-line-draw linear both;
       animation-timeline: view();
-      animation-range: entry 0% cover 70%;
+      /* "cover 0% to cover 100%" spans the entire time the list is anywhere
+         in the viewport (not just its brief "entry" transition), which is
+         the range that actually matches a container taller than the
+         viewport — otherwise the line finished drawing almost immediately
+         and then just sat there, or froze partway. */
+      animation-range: cover 0% cover 100%;
     }
     @media (prefers-reduced-motion: reduce) {
       .experience-timeline__list::before {
