@@ -1,12 +1,16 @@
 ---
-// Decorative floating tech glyphs — pure CSS, no JS, no inline styles
-// (each position/timing is a fixed class, same pattern as PlaceholderImage,
-// so it stays CSP-safe). Place inside a `position: relative; overflow:
+// Decorative floating tech glyphs — pure CSS positions/timings (each is a
+// fixed class, same pattern as PlaceholderImage, so it stays CSP-safe), with
+// a tiny progressive-enhancement script that randomly reshuffles which
+// glyph gets which position/timing class on every page load — it only ever
+// adds/removes classNames (never touches the style attribute), so it stays
+// inside the strict style-src CSP. Without JS, the classes below are the
+// static fallback layout. Place inside a `position: relative; overflow:
 // hidden;` container; give the real content `position: relative; z-index: 1`
 // so it stays above this layer.
 ---
 
-<div class="tech-field" aria-hidden="true">
+<div class="tech-field" data-tech-field aria-hidden="true">
   <span class="tech-field__item tech-field__item--1 mono">&lt;/&gt;</span>
   <span class="tech-field__item tech-field__item--2 mono">{'{ }'}</span>
   <span class="tech-field__item tech-field__item--3 mono">01</span>
@@ -30,20 +34,42 @@
     font-weight: 700;
     animation: tech-field-float linear infinite;
   }
-  .tech-field__item--1 { top: 8%;  left: 6%;  font-size: 56px; animation-duration: 24s; animation-delay: -2s; }
-  .tech-field__item--2 { top: 64%; left: 10%; font-size: 42px; animation-duration: 29s; animation-delay: -16s; }
-  .tech-field__item--3 { top: 18%; left: 86%; font-size: 38px; animation-duration: 21s; animation-delay: -8s; }
-  .tech-field__item--4 { top: 72%; left: 80%; font-size: 50px; animation-duration: 33s; animation-delay: -20s; }
-  .tech-field__item--5 { top: 42%; left: 48%; font-size: 32px; animation-duration: 27s; animation-delay: -11s; }
-  .tech-field__item--6 { top: 10%; left: 44%; font-size: 28px; animation-duration: 19s; animation-delay: -5s; }
+  .tech-field__item--1 { top: 8%;  left: 6%;  font-size: 56px; animation-duration: 18s; animation-delay: -2s; }
+  .tech-field__item--2 { top: 64%; left: 10%; font-size: 42px; animation-duration: 22s; animation-delay: -16s; }
+  .tech-field__item--3 { top: 18%; left: 86%; font-size: 38px; animation-duration: 16s; animation-delay: -8s; }
+  .tech-field__item--4 { top: 72%; left: 80%; font-size: 50px; animation-duration: 25s; animation-delay: -20s; }
+  .tech-field__item--5 { top: 42%; left: 48%; font-size: 32px; animation-duration: 20s; animation-delay: -11s; }
+  .tech-field__item--6 { top: 10%; left: 44%; font-size: 28px; animation-duration: 15s; animation-delay: -5s; }
+  .tech-field__item--7 { top: 84%; left: 46%; font-size: 36px; animation-duration: 19s; animation-delay: -9s; }
+  .tech-field__item--8 { top: 34%; left: 14%; font-size: 46px; animation-duration: 23s; animation-delay: -13s; }
+  .tech-field__item--9 { top: 52%; left: 92%; font-size: 30px; animation-duration: 17s; animation-delay: -3s; }
 
   @keyframes tech-field-float {
     0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(14px, -20px) rotate(4deg); }
-    50% { transform: translate(-10px, 12px) rotate(-3deg); }
-    75% { transform: translate(-16px, -8px) rotate(3deg); }
+    25% { transform: translate(24px, -32px) rotate(7deg); }
+    50% { transform: translate(-18px, 20px) rotate(-6deg); }
+    75% { transform: translate(-26px, -14px) rotate(5deg); }
   }
   @media (prefers-reduced-motion: reduce) {
     .tech-field__item { animation: none; }
   }
 </style>
+
+<script>
+  // Randomly reassigns each glyph to one of a larger pool of
+  // position/timing classes, so the arrangement differs per page load.
+  // Only classList is touched — never the style attribute (CSP-safe).
+  const POOL_SIZE = 9;
+  document.querySelectorAll<HTMLElement>('[data-tech-field]').forEach((field) => {
+    const items = Array.from(field.querySelectorAll<HTMLElement>('.tech-field__item'));
+    const pool = Array.from({ length: POOL_SIZE }, (_, i) => i + 1);
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    items.forEach((item, i) => {
+      for (let n = 1; n <= POOL_SIZE; n++) item.classList.remove(`tech-field__item--${n}`);
+      item.classList.add(`tech-field__item--${pool[i % pool.length]}`);
+    });
+  });
+</script>

@@ -8,7 +8,7 @@ interface Props {
 const { hero } = Astro.props;
 ---
 
-<section id="top" class="hero">
+<section id="top" class="hero" data-hero-glows>
   <div class="hero__glow hero__glow--a" aria-hidden="true"></div>
   <div class="hero__glow hero__glow--b" aria-hidden="true"></div>
   <div class="hero__grid wrap">
@@ -59,22 +59,33 @@ const { hero } = Astro.props;
     right: -100px;
     width: 560px;
     height: 560px;
-    animation: hero-glow-float-a 22s ease-in-out infinite;
+    animation: hero-glow-float-a 15s ease-in-out infinite;
   }
   .hero__glow--b {
     bottom: -180px;
     left: -120px;
     width: 480px;
     height: 480px;
-    animation: hero-glow-float-b 27s ease-in-out infinite;
+    animation: hero-glow-float-b 18s ease-in-out infinite;
+  }
+  .hero__glow--c {
+    top: 20%;
+    left: 30%;
+    width: 400px;
+    height: 400px;
+    animation: hero-glow-float-c 20s ease-in-out infinite;
   }
   @keyframes hero-glow-float-a {
     0%, 100% { translate: 0 0; scale: 1; }
-    50% { translate: -60px 70px; scale: 1.15; }
+    50% { translate: -90px 100px; scale: 1.25; }
   }
   @keyframes hero-glow-float-b {
     0%, 100% { translate: 0 0; scale: 1; }
-    50% { translate: 60px -50px; scale: 1.1; }
+    50% { translate: 90px -70px; scale: 1.18; }
+  }
+  @keyframes hero-glow-float-c {
+    0%, 100% { translate: 0 0; scale: 1; }
+    50% { translate: -50px -60px; scale: 1.2; }
   }
 
   .hero__grid {
@@ -176,3 +187,20 @@ const { hero } = Astro.props;
     }
   }
 </style>
+
+<script>
+  // Randomly reassigns which glow gets which position/motion variant on
+  // each page load. Only classList is touched — never the style attribute.
+  document.querySelectorAll<HTMLElement>('[data-hero-glows]').forEach((hero) => {
+    const variants = ['a', 'b', 'c'];
+    for (let i = variants.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [variants[i], variants[j]] = [variants[j], variants[i]];
+    }
+    const glows = Array.from(hero.querySelectorAll<HTMLElement>('.hero__glow'));
+    glows.forEach((glow, i) => {
+      glow.classList.remove('hero__glow--a', 'hero__glow--b', 'hero__glow--c');
+      glow.classList.add(`hero__glow--${variants[i % variants.length]}`);
+    });
+  });
+</script>

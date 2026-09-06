@@ -17,7 +17,7 @@ const versionDate = buildDate.toISOString().slice(0, 10).replace(/-/g, '.');
 const version = `${versionDate}.${BUILD_NUMBER}`;
 ---
 
-<div class="site-footer mono">
+<div class="site-footer mono" data-site-footer>
   <span class="site-footer__scan-dot site-footer__scan-dot--1" aria-hidden="true"></span>
   <span class="site-footer__scan-dot site-footer__scan-dot--2" aria-hidden="true"></span>
   <span class="site-footer__made">
@@ -81,11 +81,13 @@ const version = `${versionDate}.${BUILD_NUMBER}`;
     background: #7FA6D9;
     animation: site-footer-dot-pulse 4s ease-in-out infinite;
   }
-  .site-footer__scan-dot--1 { left: 22%; animation-delay: -1.2s; }
-  .site-footer__scan-dot--2 { left: 68%; animation-delay: -2.6s; }
+  .site-footer__scan-dot--1 { left: 14%; animation-delay: -1.2s; }
+  .site-footer__scan-dot--2 { left: 40%; animation-delay: -2.6s; }
+  .site-footer__scan-dot--3 { left: 62%; animation-delay: -0.4s; }
+  .site-footer__scan-dot--4 { left: 84%; animation-delay: -3.1s; }
   @keyframes site-footer-dot-pulse {
-    0%, 100% { opacity: 0.15; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.4); }
+    0%, 100% { opacity: 0.12; transform: scale(1); }
+    50% { opacity: 0.75; transform: scale(1.9); }
   }
   @media (prefers-reduced-motion: reduce) {
     .site-footer::before,
@@ -139,3 +141,25 @@ const version = `${versionDate}.${BUILD_NUMBER}`;
     box-shadow: 0 0 0 3px rgba(127, 166, 217, .18);
   }
 </style>
+
+<script>
+  // Randomly reassigns the two pulsing dots to 2 of 4 possible positions
+  // on each page load. Only classList is touched — never the style attribute.
+  document.querySelectorAll<HTMLElement>('[data-site-footer]').forEach((footer) => {
+    const pool = [1, 2, 3, 4];
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    const dots = Array.from(footer.querySelectorAll<HTMLElement>('.site-footer__scan-dot'));
+    dots.forEach((dot, i) => {
+      dot.classList.remove(
+        'site-footer__scan-dot--1',
+        'site-footer__scan-dot--2',
+        'site-footer__scan-dot--3',
+        'site-footer__scan-dot--4',
+      );
+      dot.classList.add(`site-footer__scan-dot--${pool[i % pool.length]}`);
+    });
+  });
+</script>

@@ -1,12 +1,14 @@
 ---
 // Decorative pulsing node-grid — a different flavor of background motion
 // from TechFieldBackground, themed around infrastructure/networking for
-// the Stack section. Pure CSS, no JS, no inline styles (CSP-safe). Place
-// inside a `position: relative; overflow: hidden;` container; give the
-// real content `position: relative; z-index: 1` so it stays above this.
+// the Stack section. Positions/timings are fixed classes (CSP-safe); a
+// small script randomly reshuffles which node/line gets which class on
+// each page load by only touching classList, never the style attribute.
+// Place inside a `position: relative; overflow: hidden;` container; give
+// the real content `position: relative; z-index: 1` so it stays above this.
 ---
 
-<div class="network-grid" aria-hidden="true">
+<div class="network-grid" data-network-grid aria-hidden="true">
   <span class="network-grid__node network-grid__node--1"></span>
   <span class="network-grid__node network-grid__node--2"></span>
   <span class="network-grid__node network-grid__node--3"></span>
@@ -31,17 +33,20 @@
     border-radius: 50%;
     background: var(--accent);
     opacity: 0.3;
-    animation: network-node-pulse 3.6s ease-in-out infinite;
+    animation: network-node-pulse 3.2s ease-in-out infinite;
   }
   .network-grid__node--1 { top: 14%; left: 8%;  animation-delay: 0s; }
   .network-grid__node--2 { top: 68%; left: 18%; animation-delay: -0.8s; }
   .network-grid__node--3 { top: 30%; left: 92%; animation-delay: -1.6s; }
   .network-grid__node--4 { top: 78%; left: 86%; animation-delay: -2.4s; }
   .network-grid__node--5 { top: 46%; left: 50%; animation-delay: -3.2s; }
+  .network-grid__node--6 { top: 8%;  left: 62%; animation-delay: -1.1s; }
+  .network-grid__node--7 { top: 58%; left: 74%; animation-delay: -2.9s; }
+  .network-grid__node--8 { top: 88%; left: 40%; animation-delay: -0.4s; }
 
   @keyframes network-node-pulse {
-    0%, 100% { opacity: 0.3; box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
-    50% { opacity: 0.7; box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 15%, transparent); }
+    0%, 100% { opacity: 0.3; transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+    50% { opacity: 0.8; transform: scale(1.6); box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 18%, transparent); }
   }
 
   .network-grid__line {
@@ -56,18 +61,32 @@
     left: 8%;
     width: 42%;
     transform: rotate(4deg);
-    animation: network-line-drift 22s ease-in-out infinite;
+    animation: network-line-drift 16s ease-in-out infinite;
   }
   .network-grid__line--2 {
     top: 62%;
     left: 30%;
     width: 56%;
     transform: rotate(-3deg);
-    animation: network-line-drift 28s ease-in-out infinite reverse;
+    animation: network-line-drift 20s ease-in-out infinite reverse;
+  }
+  .network-grid__line--3 {
+    top: 40%;
+    left: 4%;
+    width: 34%;
+    transform: rotate(-6deg);
+    animation: network-line-drift 14s ease-in-out infinite;
+  }
+  .network-grid__line--4 {
+    top: 80%;
+    left: 50%;
+    width: 44%;
+    transform: rotate(2deg);
+    animation: network-line-drift 18s ease-in-out infinite reverse;
   }
   @keyframes network-line-drift {
-    0%, 100% { opacity: 0.1; }
-    50% { opacity: 0.22; }
+    0%, 100% { opacity: 0.08; }
+    50% { opacity: 0.3; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -77,3 +96,33 @@
     }
   }
 </style>
+
+<script>
+  // Randomly reshuffles which node/line gets which position class on each
+  // page load. Only classList is touched — never the style attribute.
+  function shuffle<T>(arr: T[]): T[] {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-network-grid]').forEach((grid) => {
+    const NODE_POOL = 8;
+    const nodes = Array.from(grid.querySelectorAll<HTMLElement>('.network-grid__node'));
+    const nodePool = shuffle(Array.from({ length: NODE_POOL }, (_, i) => i + 1));
+    nodes.forEach((node, i) => {
+      for (let n = 1; n <= NODE_POOL; n++) node.classList.remove(`network-grid__node--${n}`);
+      node.classList.add(`network-grid__node--${nodePool[i % nodePool.length]}`);
+    });
+
+    const LINE_POOL = 4;
+    const lines = Array.from(grid.querySelectorAll<HTMLElement>('.network-grid__line'));
+    const linePool = shuffle(Array.from({ length: LINE_POOL }, (_, i) => i + 1));
+    lines.forEach((line, i) => {
+      for (let n = 1; n <= LINE_POOL; n++) line.classList.remove(`network-grid__line--${n}`);
+      line.classList.add(`network-grid__line--${linePool[i % linePool.length]}`);
+    });
+  });
+</script>
