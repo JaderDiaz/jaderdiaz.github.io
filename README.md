@@ -1,8 +1,43 @@
 # jaderdiaz.com
 
-Personal portfolio site for Jader Diaz — systems engineer / fullstack developer.
+**Jader Luis Diaz** — Ingeniero de sistemas · Desarrollador fullstack
+📍 Medellín, Colombia · Remoto · Disponible para proyectos
 
-Built with **[Astro 7](https://astro.build)**, no UI framework, package management via **pnpm**.
+Construyo aplicaciones a medida de punta a punta: el backend, la interfaz y la infraestructura donde corre. Más de diecisiete años trabajando con equipos y clientes que necesitan que el software funcione y se pueda mantener.
+
+🔗 [jaderdiaz.com](https://jaderdiaz.com) · [LinkedIn](https://linkedin.com/in/jlde412) · [GitHub](https://github.com/JaderDiaz) · 📧 info@jaderdiaz.com
+
+### Qué hago
+
+| | |
+|---|---|
+| **Aplicaciones a medida** | PHP, Laravel, NodeJs, Python, Java, C#, MySQL, MongoDB |
+| **Sitios y plataformas web** | React, React Native, Swift, Vue, Angular, WordPress, Joomla |
+| **Nube e infraestructura** | AWS, Google Cloud, Azure, Docker, cPanel |
+| **Mantenimiento y soporte** | Corrección de errores, nuevos módulos, optimización de rendimiento |
+| **Asesoría tecnológica** | Elección de stack, costos, riesgos, ruta de implementación |
+| **Análisis de sistemas y arquitecturas** | Diagnóstico de sistemas existentes |
+
+### Stack
+
+**Backend** PHP (Nativo, Yii2, Laravel) · NodeJs · Python (Flask) · Java (Spring Boot) · C# · SQL, MySQL, MongoDB
+**Frontend y móvil** ReactJs · React Native · Swift (iOS nativo) · VueJs · Angular
+**Nube e infra** AWS, Google Cloud, Azure · Firebase · Docker · cPanel, dominios y DNS
+
+### Experiencia reciente
+
+- **Desarrollador Fullstack TI** · Línea Directa — sep 2021 — hoy
+- **Desarrollador freelance** · Clientes directos — nov 2019 — sep 2021
+- **Coordinador de desarrollo** · Xegmenta S.A.S. — mar 2018 — oct 2019
+- **Desarrollador de software** · InterServicios S.A.S. — may 2014 — feb 2018
+
+_Ingeniería de Sistemas · Politécnico Grancolombiano · Scrum Master_
+
+---
+
+## About this repo
+
+Source code for the site above. Built with **[Astro 7](https://astro.build)**, no UI framework, package management via **pnpm**.
 
 ## Features
 
