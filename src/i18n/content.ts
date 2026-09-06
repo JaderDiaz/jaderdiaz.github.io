@@ -96,6 +96,7 @@ export interface SiteContent {
   testimonials: {
     eyebrow: string;
     pending: string;
+    comingSoon: string;
     items: TestimonialItemData[];
   };
   contact: {
@@ -339,16 +340,10 @@ const es: SiteContent = {
   testimonials: {
     eyebrow: '06 — TESTIMONIOS',
     pending: 'pendiente',
-    items: [
-      {
-        quote: '"Cita del cliente o jefe directo, dos o tres líneas sobre cómo fue trabajar contigo."',
-        attribution: 'Nombre · Cargo, Empresa',
-      },
-      {
-        quote: '"Segunda cita, idealmente de un cliente freelance."',
-        attribution: 'Nombre · Cargo, Empresa',
-      },
-    ],
+    // TODO: replace with real client/employer quotes once collected — see
+    // AboutAndTestimonials.astro, which renders this placeholder while `items` is empty.
+    comingSoon: 'Aún no publico testimonios aquí — pronto sumaré los de clientes y equipos con los que ya trabajé.',
+    items: [],
   },
   contact: {
     eyebrow: '07 — CONTACTO',
@@ -601,16 +596,8 @@ const en: SiteContent = {
   testimonials: {
     eyebrow: '06 — TESTIMONIALS',
     pending: 'pending',
-    items: [
-      {
-        quote: '"Quote from a client or manager, two or three lines about what it was like to work with you."',
-        attribution: 'Name · Role, Company',
-      },
-      {
-        quote: '"Second quote, ideally from a freelance client."',
-        attribution: 'Name · Role, Company',
-      },
-    ],
+    comingSoon: "No published testimonials yet — I'll be adding feedback from real clients and teams soon.",
+    items: [],
   },
   contact: {
     eyebrow: '07 — CONTACT',
