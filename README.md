@@ -82,8 +82,8 @@ public/          # static assets served as-is (favicon, robots.txt)
 
 The site deploys to **Cloudflare Workers** (via `@astrojs/cloudflare`), not GitHub Pages — GitHub Pages only serves static files, and `src/pages/api/contact.ts` opts out of prerendering (`export const prerender = false`) to handle form submissions server-side, which needs a runtime. The repo stays on GitHub either way; only hosting/serving moves to Cloudflare.
 
-- `pnpm deploy` — builds and deploys with Wrangler (needs `wrangler login` once, or a `CLOUDFLARE_API_TOKEN`).
-- For CI/CD (deploy on every push), connect the repo in the Cloudflare dashboard (Workers Builds) with an **empty Build command** and **Deploy command: `pnpm run deploy`** (that single script runs `astro build && wrangler deploy`, so Cloudflare doesn't need a separate build step).
+- `pnpm deploy` — builds and deploys with Wrangler (needs `wrangler login` once locally, or a `CLOUDFLARE_API_TOKEN` env var; Workers Builds injects credentials automatically, no manual login needed there).
+- For CI/CD (deploy on every push), connect the repo in the Cloudflare dashboard (Workers Builds) with an **empty Build command** and **Deploy command: `pnpm run deploy`** (that single script runs `astro build && wrangler deploy`, so Cloudflare doesn't need a separate build step). A dashboard setting change only takes effect on the next triggered build — push something to re-run it.
 - Config lives in `wrangler.jsonc` (worker name, compatibility date, static assets directory).
 
 ## Content / pending items
