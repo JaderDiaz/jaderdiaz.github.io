@@ -45,7 +45,11 @@ public/          # static assets served as-is (favicon, robots.txt)
 
 ## Deployment
 
-The site uses the Astro **Node adapter in `standalone` mode** (`@astrojs/node`), not a pure static build. This is required because `src/pages/api/contact.ts` opts out of prerendering (`export const prerender = false`) to handle form submissions server-side. Deploy to a host that can run a Node server (or a platform with Node SSR support), not a static-only host — unless the contact API route is removed, in which case the site could switch back to fully static output.
+The site deploys to **Cloudflare Workers** (via `@astrojs/cloudflare`), not GitHub Pages — GitHub Pages only serves static files, and `src/pages/api/contact.ts` opts out of prerendering (`export const prerender = false`) to handle form submissions server-side, which needs a runtime. The repo stays on GitHub either way; only hosting/serving moves to Cloudflare.
+
+- `pnpm deploy` — builds and deploys with Wrangler (needs `wrangler login` once, or a `CLOUDFLARE_API_TOKEN`).
+- For CI/CD (deploy on every push), connect the repo in the Cloudflare dashboard (Workers Builds) with build command `npx astro build` and deploy command `npx wrangler deploy`.
+- Config lives in `wrangler.jsonc` (worker name, compatibility date, static assets directory).
 
 ## Content / pending items
 

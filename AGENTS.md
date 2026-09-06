@@ -2,7 +2,7 @@
 
 ## Project overview
 
-`jaderdiaz.com` is a personal portfolio site built with Astro 7.3.1, deployed with the Node adapter (standalone mode) because of one dynamic API route. It has no UI framework (no React/Vue/Svelte) — every component is a plain `.astro` file. Content is bilingual (Spanish default, English) driven by a single content dictionary.
+`jaderdiaz.com` is a personal portfolio site built with Astro 7.3.1, deployed to Cloudflare Workers (`@astrojs/cloudflare` adapter, config in `wrangler.jsonc`) because of one dynamic API route — not GitHub Pages, which can't run it. It has no UI framework (no React/Vue/Svelte) — every component is a plain `.astro` file. Content is bilingual (Spanish default, English) driven by a single content dictionary.
 
 ## Setup commands
 

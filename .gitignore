@@ -29,3 +29,8 @@ pnpm-debug.log*
 
 # tooling caches
 .atl/
+
+# cloudflare / wrangler
+.wrangler/
+worker-configuration.d.ts
+.dev.vars

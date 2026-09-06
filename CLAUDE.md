@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Personal portfolio site for Jader Diaz (jaderdiaz.com), built with Astro 7.3.1. No UI framework — every component is a plain `.astro` file. Bilingual (es default, en) with real per-locale routing. Deployed with `@astrojs/node` in standalone mode because one route (`/api/contact`) is server-rendered; everything else is static.
+Personal portfolio site for Jader Diaz (jaderdiaz.com), built with Astro 7.3.1. No UI framework — every component is a plain `.astro` file. Bilingual (es default, en) with real per-locale routing. Deployed to **Cloudflare Workers** (`@astrojs/cloudflare`, config in `wrangler.jsonc`) because one route (`/api/contact`) is server-rendered; everything else is static. Not GitHub Pages — that host can't run the contact route.
 
 ## Commands
 
@@ -9,6 +9,7 @@ pnpm install
 pnpm dev
 pnpm build
 pnpm check    # must pass with 0 errors before a change is considered done
+pnpm deploy   # astro build && wrangler deploy
 ```
 
 No test suite exists in this project — `pnpm build` + `pnpm check` passing is the full verification bar.
