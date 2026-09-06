@@ -1,0 +1,236 @@
+---
+import type { Lang, SiteContent } from '../../i18n/content';
+import ThemeToggle from './ThemeToggle.astro';
+import LangSwitcher from './LangSwitcher.astro';
+import ScrollProgress from './ScrollProgress.astro';
+import ActiveNavHighlight from './ActiveNavHighlight.astro';
+
+interface Props {
+  lang: Lang;
+  nav: SiteContent['nav'];
+  themeToggle: SiteContent['themeToggle'];
+  path: string;
+}
+
+const { lang, nav, themeToggle, path } = Astro.props;
+---
+
+<header class="site-header mono">
+  <ScrollProgress />
+  <a href="#top" class="site-header__brand">
+    <span class="site-header__mark">jd<span class="site-header__dot"></span></span>
+    <span class="site-header__word">jaderdiaz.com</span>
+  </a>
+  <button
+    type="button"
+    class="site-header__burger"
+    data-menu-toggle
+    data-label-open={nav.menuOpen}
+    data-label-close={nav.menuClose}
+    aria-expanded="false"
+    aria-controls="site-header-nav"
+    aria-label={nav.menuOpen}
+  >
+    <span class="site-header__burger-line"></span>
+    <span class="site-header__burger-line"></span>
+    <span class="site-header__burger-line"></span>
+  </button>
+  <nav class="site-header__nav" id="site-header-nav" data-menu>
+    <a data-navlink data-menu-link href="#servicios">{nav.servicios}</a>
+    <a data-navlink data-menu-link href="#stack">{nav.stack}</a>
+    <a data-navlink data-menu-link href="#experiencia">{nav.experiencia}</a>
+    <!--<a data-navlink data-menu-link href="#proyectos">{nav.proyectos}</a>-->
+    <a data-navlink data-menu-link href="#sobre-mi">{nav.sobreMi}</a>
+    <a data-navlink data-menu-link href="#contacto">{nav.contacto}</a>
+    <div class="site-header__controls site-header__controls--mobile">
+      <ThemeToggle lightLabel={themeToggle.light} darkLabel={themeToggle.dark} />
+      <LangSwitcher lang={lang} path={path} />
+    </div>
+  </nav>
+  <div class="site-header__controls site-header__controls--desktop">
+    <ThemeToggle lightLabel={themeToggle.light} darkLabel={themeToggle.dark} />
+    <LangSwitcher lang={lang} path={path} />
+  </div>
+</header>
+
+<ActiveNavHighlight />
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 16px clamp(20px, 4vw, 48px);
+    border-bottom: 1px solid var(--line);
+    background: var(--head);
+    backdrop-filter: blur(10px);
+    font-size: 12px;
+    letter-spacing: .06em;
+  }
+  .site-header__brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--ink);
+  }
+  .site-header__mark {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    border: 1.5px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -.02em;
+  }
+  .site-header__dot {
+    position: absolute;
+    right: -3.5px;
+    bottom: -3.5px;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    animation: blink 1.4s steps(1) infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-header__dot { animation: none; }
+  }
+  .site-header__word {
+    font-weight: 700;
+  }
+  .site-header__nav {
+    display: flex;
+    gap: clamp(14px, 2vw, 28px);
+    flex-wrap: wrap;
+    color: var(--faint);
+  }
+  .site-header__nav a {
+    color: inherit;
+    transition: color .25s ease;
+  }
+  .site-header__nav a.is-active {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .site-header__controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .site-header__controls--mobile {
+    display: none;
+  }
+  .site-header__burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--line);
+    background: transparent;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .site-header__burger-line {
+    display: block;
+    width: 16px;
+    height: 2px;
+    background: var(--ink);
+    transition: transform .25s ease, opacity .2s ease;
+  }
+  .site-header__burger[aria-expanded="true"] .site-header__burger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .site-header__burger[aria-expanded="true"] .site-header__burger-line:nth-child(2) {
+    opacity: 0;
+  }
+  .site-header__burger[aria-expanded="true"] .site-header__burger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width: 860px) {
+    .site-header {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+    .site-header__burger {
+      display: flex;
+      order: 2;
+    }
+    .site-header__controls--desktop {
+      display: none;
+    }
+    .site-header__nav {
+      order: 3;
+      flex-basis: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height .3s ease, opacity .25s ease;
+    }
+    .site-header__nav[data-open="true"] {
+      max-height: 480px;
+      opacity: 1;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      margin-top: 4px;
+    }
+    .site-header__nav a {
+      padding: 10px 0;
+      width: 100%;
+    }
+    .site-header__controls--mobile {
+      display: flex;
+      gap: 10px;
+      padding: 14px 0 4px;
+      border-top: 1px solid var(--line2);
+      margin-top: 8px;
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const nav = document.querySelector<HTMLElement>('[data-menu]');
+
+  if (toggle && nav) {
+    const labelOpen = toggle.dataset.labelOpen ?? '';
+    const labelClose = toggle.dataset.labelClose ?? '';
+
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? labelClose : labelOpen);
+      nav.dataset.open = String(open);
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    nav.querySelectorAll('[data-menu-link]').forEach((link) => {
+      link.addEventListener('click', () => setOpen(false));
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+
+    const mq = window.matchMedia('(min-width: 861px)');
+    mq.addEventListener('change', (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+</script>

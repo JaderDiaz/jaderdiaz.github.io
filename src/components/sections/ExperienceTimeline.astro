@@ -1,0 +1,38 @@
+---
+import type { SiteContent } from '../../i18n/content';
+import ExperienceItem from '../ui/ExperienceItem.astro';
+import EducationBadge from '../ui/EducationBadge.astro';
+
+interface Props {
+  experience: SiteContent['experience'];
+}
+const { experience } = Astro.props;
+---
+
+<div class="experience-timeline">
+  <div class="experience-timeline__list">
+    {experience.items.map((item) => (
+      <ExperienceItem
+        dateRange={item.dateRange}
+        role={item.role}
+        company={item.company}
+        description={item.description}
+      />
+    ))}
+  </div>
+  <div class="experience-timeline__badges">
+    {experience.education.map((label) => <EducationBadge label={label} />)}
+  </div>
+</div>
+
+<style>
+  .experience-timeline__list {
+    border-top: 1px solid var(--line);
+  }
+  .experience-timeline__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+  }
+</style>

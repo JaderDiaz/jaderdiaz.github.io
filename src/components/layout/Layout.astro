@@ -1,0 +1,42 @@
+---
+import '../../styles/global.css';
+import type { Lang } from '../../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script is:inline>
+    // Apply persisted theme before paint to avoid a flash of the wrong theme.
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'dark') document.documentElement.dataset.theme = 'dark';
+      } catch (e) {
+        /* localStorage unavailable — default light theme applies */
+      }
+    })();
+  </script>
+  <slot name="head" />
+</head>
+<body>
+  <div class="page">
+    <slot />
+  </div>
+</body>
+</html>
+
+<style is:global>
+  .page {
+    min-height: 100vh;
+    background: var(--bg);
+  }
+</style>

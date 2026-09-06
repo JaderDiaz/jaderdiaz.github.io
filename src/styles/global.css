@@ -1,0 +1,159 @@
+@import '@fontsource/space-grotesk/400.css';
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/600.css';
+@import '@fontsource/space-grotesk/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/700.css';
+
+:root {
+  --bg: #FAFAF9;
+  --bg2: #F2F1ED;
+  --ink: #10141A;
+  --muted: #3A424E;
+  --faint: #5C6470;
+  --accent: #1E3A5F;
+  --onAccent: #ffffff;
+  --line: rgba(16, 20, 26, .14);
+  --line2: rgba(16, 20, 26, .08);
+  --grid: rgba(30, 58, 95, .06);
+  --card: #FAFAF9;
+  --head: rgba(250, 250, 249, .92);
+
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --content-max: 1400px;
+  --section-pad-y: clamp(56px, 7vw, 84px);
+  --section-pad-x: clamp(20px, 4vw, 48px);
+}
+
+html[data-theme="dark"] {
+  --bg: #0F1722;
+  --bg2: #151E2B;
+  --ink: #F2F3F1;
+  --muted: rgba(242, 243, 241, .74);
+  --faint: rgba(242, 243, 241, .5);
+  --accent: #7FA6D9;
+  --onAccent: #0F1722;
+  --line: rgba(242, 243, 241, .18);
+  --line2: rgba(242, 243, 241, .1);
+  --grid: rgba(255, 255, 255, .045);
+  --card: #131C28;
+  --head: rgba(15, 23, 34, .92);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  transition: background .3s ease, color .3s ease;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover { opacity: .7; }
+
+h1, h2, h3 {
+  font-family: var(--font-body);
+  letter-spacing: -.02em;
+}
+
+h1 { font-size: clamp(40px, 6vw, 76px); line-height: 1.02; font-weight: 600; letter-spacing: -.03em; margin: 0; }
+h2 { font-size: clamp(32px, 4vw, 52px); line-height: 1.05; font-weight: 600; letter-spacing: -.03em; margin: 0; }
+h3 { font-size: clamp(21px, 2vw, 26px); line-height: 1.2; font-weight: 600; letter-spacing: -.02em; margin: 0; }
+
+p { text-wrap: pretty; }
+
+input, textarea {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  outline: none;
+  width: 100%;
+}
+input::placeholder, textarea::placeholder { color: var(--faint); }
+
+button { font-family: var(--font-mono); cursor: pointer; }
+
+.mono { font-family: var(--font-mono); }
+
+.wrap {
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.section {
+  padding: var(--section-pad-y) var(--section-pad-x);
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 70px;
+}
+
+.section--alt { background: var(--bg2); }
+
+@keyframes blink {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+
+/* Scroll reveal - progressive enhancement.
+   Elements are visible by default; JS adds .js-reveal (hidden) then
+   toggles .is-visible via IntersectionObserver. Without JS, or with
+   prefers-reduced-motion, everything just stays visible. */
+[data-reveal].js-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .65s cubic-bezier(.2,.7,.3,1), transform .65s cubic-bezier(.2,.7,.3,1);
+}
+[data-reveal].js-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal].js-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Hover-lift, pure CSS */
+[data-lift] {
+  transition: transform .35s cubic-bezier(.2,.7,.3,1), border-color .35s ease, box-shadow .35s ease;
+}
+[data-lift]:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(15, 23, 34, .14);
+  border-color: var(--accent);
+}
+
+[data-cta] {
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+[data-cta]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(15, 23, 34, .18);
+}
+
+[data-chip], [data-filter] {
+  transition: background .25s ease, color .25s ease, border-color .25s ease, transform .2s ease;
+}
+[data-chip]:hover, [data-filter]:hover {
+  transform: translateY(-2px);
+}

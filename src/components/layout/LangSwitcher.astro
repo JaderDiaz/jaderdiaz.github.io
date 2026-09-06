@@ -1,0 +1,53 @@
+---
+import type { Lang } from '../../i18n/content';
+
+interface Props {
+  lang: Lang;
+  /** path segment without locale prefix, e.g. "" for home */
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const clean = path.replace(/^\/+/, '').replace(/\/+$/, '');
+const esHref = `/es/${clean}${clean ? '/' : ''}`;
+const enHref = `/en/${clean}${clean ? '/' : ''}`;
+---
+
+<span class="lang-switcher">
+  <a
+    href={esHref}
+    class="lang-switcher__btn mono"
+    aria-current={lang === 'es' ? 'page' : undefined}
+    data-active={lang === 'es' ? 'true' : 'false'}
+  >ES</a>
+  <a
+    href={enHref}
+    class="lang-switcher__btn mono"
+    aria-current={lang === 'en' ? 'page' : undefined}
+    data-active={lang === 'en' ? 'true' : 'false'}
+  >EN</a>
+</span>
+
+<style>
+  .lang-switcher {
+    display: flex;
+    gap: 6px;
+  }
+  .lang-switcher__btn {
+    padding: 4px 9px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--faint);
+    font-size: 12px;
+    transition: background .25s ease, color .25s ease, border-color .25s ease, transform .2s ease;
+  }
+  .lang-switcher__btn:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  .lang-switcher__btn[data-active="true"] {
+    background: var(--accent);
+    color: var(--onAccent);
+    border-color: transparent;
+  }
+</style>

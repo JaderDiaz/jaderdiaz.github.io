@@ -1,0 +1,17 @@
+---
+import type { SiteContent } from '../../i18n/content';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ServiceGrid from './ServiceGrid.astro';
+
+interface Props {
+  services: SiteContent['services'];
+}
+const { services } = Astro.props;
+---
+
+<section id="servicios" class="section">
+  <div class="wrap">
+    <SectionHeading eyebrow={services.eyebrow} />
+    <ServiceGrid services={services} />
+  </div>
+</section>

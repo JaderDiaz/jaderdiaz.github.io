@@ -1,0 +1,34 @@
+---
+interface Props {
+  index: string;
+  title: string;
+  description: string;
+}
+const { index, title, description } = Astro.props;
+---
+
+<div data-reveal data-lift class="service-card">
+  <div class="service-card__index mono">{index}</div>
+  <h3>{title}</h3>
+  <p class="service-card__description">{description}</p>
+</div>
+
+<style>
+  .service-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: clamp(24px, 3vw, 34px);
+    border-radius: 2px;
+  }
+  .service-card__index {
+    font-size: 11px;
+    color: var(--faint);
+    margin-bottom: 14px;
+  }
+  .service-card__description {
+    margin: 12px 0 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+</style>

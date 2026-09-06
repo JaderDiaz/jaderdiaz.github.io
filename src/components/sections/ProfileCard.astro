@@ -1,0 +1,81 @@
+---
+import PlaceholderImage from '../ui/PlaceholderImage.astro';
+
+interface Props {
+  photoLabel: string;
+  photoCaption: string;
+  stats: { label: string; value: string }[];
+}
+
+const { photoLabel, photoCaption, stats } = Astro.props;
+---
+
+<div data-hero-in class="profile-card">
+  <div class="profile-card__photo">
+    <PlaceholderImage caption={photoCaption} label={photoLabel} aspectRatio="1" />
+    <div class="profile-card__ring">
+      <div class="profile-card__dot"></div>
+    </div>
+  </div>
+  <div class="profile-card__stats mono">
+    {stats.map((s) => (
+      <div class="profile-card__row">
+        <span>{s.label}</span>
+        <span class="profile-card__value">{s.value}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .profile-card {
+    max-width: 420px;
+    justify-self: end;
+    width: 100%;
+  }
+  .profile-card__photo {
+    position: relative;
+  }
+  .profile-card__ring {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .profile-card__ring::before {
+    content: '';
+    width: 62%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px dashed var(--accent);
+    display: flex;
+  }
+  .profile-card__dot {
+    position: absolute;
+    width: 21%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--grid);
+  }
+  .profile-card__stats {
+    margin-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--faint);
+  }
+  .profile-card__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line2);
+  }
+  .profile-card__row:last-child {
+    border-bottom: 0;
+  }
+  .profile-card__value {
+    color: var(--ink);
+  }
+</style>

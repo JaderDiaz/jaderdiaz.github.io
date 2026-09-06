@@ -1,0 +1,91 @@
+---
+interface Props {
+  copyright: string;
+  madeWithPrefix: string;
+  madeWithSuffix: string;
+  versionLabel: string;
+}
+const { copyright, madeWithPrefix, madeWithSuffix, versionLabel } = Astro.props;
+
+// Build-time version: the site's own "release date". Regenerated on every
+// production build, so it always reflects when the deployed content was last updated.
+const buildDate = new Date();
+const version = buildDate.toISOString().slice(0, 10).replace(/-/g, '.');
+---
+
+<div class="site-footer mono">
+  <span class="site-footer__made">
+    <span>{copyright}</span>
+    <span class="site-footer__sep" aria-hidden="true">·</span>
+    <span>
+      {madeWithPrefix}
+      <span class="site-footer__heart" aria-hidden="true">❤</span>
+      {madeWithSuffix}
+    </span>
+  </span>
+  <span class="site-footer__version" title={`${versionLabel} ${version}`}>
+    <span class="site-footer__version-dot" aria-hidden="true"></span>
+    {versionLabel} {version}
+  </span>
+</div>
+
+<style>
+  .site-footer {
+    max-width: 1400px;
+    margin: 56px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(242, 243, 241, .15);
+    font-size: 11px;
+    color: rgba(242, 243, 241, .5);
+  }
+  .site-footer__made {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .site-footer__sep {
+    opacity: .5;
+  }
+  .site-footer__heart {
+    display: inline-block;
+    color: #ff5470;
+    padding: 0 4px;
+    transform-origin: center;
+    animation: heartbeat 1.8s ease-in-out infinite;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.35); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.2); }
+    60% { transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-footer__heart { animation: none; }
+  }
+  .site-footer__version {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 10px;
+    border: 1px solid rgba(242, 243, 241, .18);
+    border-radius: 2px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  .site-footer__version-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #7FA6D9;
+    box-shadow: 0 0 0 3px rgba(127, 166, 217, .18);
+  }
+</style>

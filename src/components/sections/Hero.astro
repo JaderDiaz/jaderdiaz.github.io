@@ -1,0 +1,126 @@
+---
+import type { SiteContent } from '../../i18n/content';
+import ProfileCard from './ProfileCard.astro';
+
+interface Props {
+  hero: SiteContent['hero'];
+}
+const { hero } = Astro.props;
+---
+
+<section id="top" class="hero">
+  <div class="hero__grid wrap">
+    <div>
+      <div data-hero-in class="hero__badge mono">
+        <span class="hero__badge-dot"></span>
+        <span>{hero.availability}</span>
+      </div>
+      <h1 data-hero-in>{hero.name}</h1>
+      <p data-hero-in class="hero__tagline mono">{hero.tagline}</p>
+      <p data-hero-in class="hero__description">{hero.description}</p>
+      <div data-hero-in class="hero__ctas mono">
+        <a href="#contacto" data-cta class="hero__cta hero__cta--primary">{hero.ctaPrimary}</a>
+        <a href="#experiencia" data-cta class="hero__cta hero__cta--secondary">{hero.ctaSecondary}</a>
+      </div>
+    </div>
+    <ProfileCard photoLabel={hero.photoLabel} photoCaption={hero.photoCaption} stats={hero.stats} />
+  </div>
+</section>
+
+<style>
+  .hero {
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 80px 80px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: clamp(32px, 5vw, 56px);
+    padding: clamp(48px, 7vw, 80px) clamp(20px, 4vw, 48px);
+    align-items: center;
+  }
+
+  @media (max-width: 640px) {
+    .hero__grid {
+      padding-top: 28px;
+      padding-bottom: 36px;
+    }
+  }
+  .hero__badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+  }
+  .hero__badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: blink 2s steps(1) infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__badge-dot { animation: none; }
+  }
+  .hero__tagline {
+    margin: 22px 0 0;
+    font-size: 15px;
+    color: var(--accent);
+  }
+  .hero__description {
+    margin: 26px 0 0;
+    max-width: 560px;
+    font-size: clamp(16px, 1.4vw, 19px);
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .hero__ctas {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 34px;
+    font-size: 13px;
+  }
+  .hero__cta {
+    padding: 15px 26px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+  .hero__cta--primary {
+    background: var(--accent);
+    color: var(--onAccent);
+  }
+  .hero__cta--secondary {
+    border: 1px solid var(--line);
+    color: var(--ink);
+  }
+
+  [data-hero-in] {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: hero-in .7s cubic-bezier(.2,.7,.3,1) forwards;
+  }
+  .hero > .hero__grid > div > [data-hero-in]:nth-child(1),
+  .hero__badge { animation-delay: 0ms; }
+  .hero h1[data-hero-in] { animation-delay: 90ms; }
+  .hero__tagline[data-hero-in] { animation-delay: 180ms; }
+  .hero__description[data-hero-in] { animation-delay: 270ms; }
+  .hero__ctas[data-hero-in] { animation-delay: 360ms; }
+
+  @keyframes hero-in {
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-hero-in] {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+</style>

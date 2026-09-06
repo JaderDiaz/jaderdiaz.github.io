@@ -1,0 +1,49 @@
+---
+interface Props {
+  dateRange: string;
+  role: string;
+  company: string;
+  description: string;
+}
+const { dateRange, role, company, description } = Astro.props;
+---
+
+<div data-reveal class="experience-item">
+  <div class="experience-item__date mono">{dateRange}</div>
+  <div class="experience-item__body">
+    <h3>{role}</h3>
+    <p class="experience-item__company mono">{company}</p>
+    <p class="experience-item__description">{description}</p>
+  </div>
+</div>
+
+<style>
+  .experience-item {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(16px, 3vw, 40px);
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line2);
+  }
+  .experience-item__date {
+    font-size: 13px;
+    color: var(--accent);
+    max-width: 200px;
+  }
+  .experience-item__body {
+    grid-column: span 2;
+    min-width: 0;
+  }
+  .experience-item__company {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: var(--faint);
+  }
+  .experience-item__description {
+    margin: 12px 0 0;
+    max-width: 760px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+</style>

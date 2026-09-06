@@ -1,0 +1,42 @@
+---
+import type { Lang } from '../../i18n/content';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  path: string; // path segment without locale, e.g. "" for home
+}
+
+const { lang, title, description, path } = Astro.props;
+
+const site = Astro.site ?? new URL('https://jaderdiaz.com');
+const cleanPath = path.replace(/^\/+/, '').replace(/\/+$/, '');
+
+const esUrl = new URL(`/es/${cleanPath}${cleanPath ? '/' : ''}`, site).toString();
+const enUrl = new URL(`/en/${cleanPath}${cleanPath ? '/' : ''}`, site).toString();
+const canonical = lang === 'es' ? esUrl : enUrl;
+const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<link rel="alternate" hreflang="es" href={esUrl} />
+<link rel="alternate" hreflang="en" href={enUrl} />
+<link rel="alternate" hreflang="x-default" href={esUrl} />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={ogLocale} />
+<meta property="og:site_name" content="jaderdiaz.com" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />

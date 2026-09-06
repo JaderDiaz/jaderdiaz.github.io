@@ -1,0 +1,44 @@
+---
+interface Props {
+  caption: string;
+  label?: string;
+  aspectRatio?: string; // e.g. "1" or "16/10"
+  rounded?: boolean;
+  class?: string;
+}
+
+const { caption, label, aspectRatio = '1', class: className = '' } = Astro.props;
+---
+
+<div
+  class:list={['placeholder-image', className]}
+  style={`aspect-ratio:${aspectRatio}`}
+  role="img"
+  aria-label={caption}
+>
+  {label && <span class="placeholder-image__label mono">{label}</span>}
+  <span class="placeholder-image__caption mono">{caption}</span>
+</div>
+
+<style>
+  .placeholder-image {
+    position: relative;
+    border: 1px solid var(--accent);
+    background: repeating-linear-gradient(45deg, var(--grid) 0 8px, transparent 8px 16px);
+    display: flex;
+    align-items: flex-end;
+    padding: 12px;
+  }
+  .placeholder-image__label {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: 10px;
+    color: var(--accent);
+  }
+  .placeholder-image__caption {
+    font-size: 10px;
+    line-height: 1.5;
+    color: var(--faint);
+  }
+</style>

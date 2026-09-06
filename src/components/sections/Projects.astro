@@ -1,0 +1,40 @@
+---
+import type { SiteContent } from '../../i18n/content';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ProjectFilterBar from './ProjectFilterBar.astro';
+import ProjectGrid from './ProjectGrid.astro';
+
+interface Props {
+  projects: SiteContent['projects'];
+}
+const { projects } = Astro.props;
+---
+
+<section id="proyectos" class="section section--alt">
+  <div class="wrap">
+    <div class="projects__header">
+      <SectionHeading eyebrow={projects.eyebrow} />
+      <span class="projects__pending mono">{projects.pendingNote}</span>
+    </div>
+    <ProjectFilterBar filters={projects.filters} />
+    <ProjectGrid projects={projects} />
+  </div>
+</section>
+
+<style>
+  .projects__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 26px;
+  }
+  .projects__header :global(.section-eyebrow) {
+    margin-bottom: 0;
+  }
+  .projects__pending {
+    font-size: 12px;
+    color: var(--faint);
+  }
+</style>

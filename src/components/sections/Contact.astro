@@ -1,0 +1,41 @@
+---
+import type { SiteContent } from '../../i18n/content';
+import ContactInfo from './ContactInfo.astro';
+import ContactForm from './ContactForm.astro';
+import Footer from '../layout/Footer.astro';
+
+interface Props {
+  contact: SiteContent['contact'];
+  footer: SiteContent['footer'];
+}
+const { contact, footer } = Astro.props;
+---
+
+<section id="contacto" class="contact-section">
+  <div class="wrap contact-section__grid">
+    <ContactInfo contact={contact} />
+    <ContactForm form={contact.form} />
+  </div>
+  <Footer
+    copyright={footer.copyright}
+    madeWithPrefix={footer.madeWithPrefix}
+    madeWithSuffix={footer.madeWithSuffix}
+    versionLabel={footer.versionLabel}
+  />
+</section>
+
+<style>
+  /* This section is always dark, regardless of the site theme. */
+  .contact-section {
+    background: #0F1722;
+    color: #F2F3F1;
+    padding: clamp(56px, 7vw, 84px) clamp(20px, 4vw, 48px);
+    scroll-margin-top: 70px;
+  }
+  .contact-section__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: clamp(32px, 5vw, 64px);
+    align-items: start;
+  }
+</style>

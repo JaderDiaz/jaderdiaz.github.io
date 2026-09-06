@@ -1,0 +1,27 @@
+---
+import type { SiteContent } from '../../i18n/content';
+import SectionHeading from '../ui/SectionHeading.astro';
+import StackColumn from '../ui/StackColumn.astro';
+
+interface Props {
+  stack: SiteContent['stack'];
+}
+const { stack } = Astro.props;
+---
+
+<section id="stack" class="section section--alt">
+  <div class="wrap">
+    <SectionHeading eyebrow={stack.eyebrow} />
+    <div class="stack__columns">
+      {stack.columns.map((c) => <StackColumn label={c.label} items={c.items} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stack__columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(24px, 3vw, 40px);
+  }
+</style>

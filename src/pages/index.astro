@@ -1,0 +1,7 @@
+---
+// Astro's i18n middleware redirects "/" to "/es/" because
+// routing.prefixDefaultLocale and routing.redirectToDefaultLocale are both
+// true in astro.config.mjs. This file exists so that redirect has a route to
+// attach to; it is not expected to render on its own.
+return Astro.redirect('/es/', 308);
+---

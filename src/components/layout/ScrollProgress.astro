@@ -1,0 +1,33 @@
+---
+---
+<div data-progress class="scroll-progress"></div>
+
+<style>
+  .scroll-progress {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 2px;
+    width: 0%;
+    background: var(--accent);
+    transition: width .12s linear;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-progress { transition: none; }
+  }
+</style>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-progress]');
+  const header = document.querySelector<HTMLElement>('header');
+
+  function onScroll() {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    if (bar) bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    if (header) header.style.boxShadow = h.scrollTop > 12 ? '0 6px 24px rgba(15,23,34,.10)' : 'none';
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

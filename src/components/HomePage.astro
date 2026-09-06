@@ -1,0 +1,40 @@
+---
+import Layout from './layout/Layout.astro';
+import Header from './layout/Header.astro';
+import RevealObserver from './layout/RevealObserver.astro';
+import SEO from './ui/SEO.astro';
+import Hero from './sections/Hero.astro';
+import Services from './sections/Services.astro';
+import Stack from './sections/Stack.astro';
+import Experience from './sections/Experience.astro';
+import Projects from './sections/Projects.astro';
+import AboutAndTestimonials from './sections/AboutAndTestimonials.astro';
+import Contact from './sections/Contact.astro';
+import type { Lang } from '../i18n/content';
+import { getContent } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const content = getContent(lang);
+---
+
+<Layout lang={lang}>
+  <Fragment slot="head">
+    <SEO lang={lang} title={content.meta.title} description={content.meta.description} path="" />
+  </Fragment>
+
+  <Header lang={lang} nav={content.nav} themeToggle={content.themeToggle} path="" />
+  <main>
+    <Hero hero={content.hero} />
+    <Services services={content.services} />
+    <Stack stack={content.stack} />
+    <Experience experience={content.experience} />
+    <!--<Projects projects={content.projects} />-->
+    <AboutAndTestimonials about={content.about} testimonials={content.testimonials} />
+    <Contact contact={content.contact} footer={content.footer} />
+  </main>
+  <RevealObserver />
+</Layout>

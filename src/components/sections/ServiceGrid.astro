@@ -1,0 +1,54 @@
+---
+import type { SiteContent } from '../../i18n/content';
+import ServiceCard from '../ui/ServiceCard.astro';
+
+interface Props {
+  services: SiteContent['services'];
+}
+const { services } = Astro.props;
+---
+
+<div class="service-grid">
+  {services.items.map((s) => (
+    <ServiceCard index={s.index} title={s.title} description={s.description} />
+  ))}
+  <a href="#contacto" data-reveal data-lift class="service-grid__cta">
+    <div class="service-grid__cta-eyebrow mono">{services.ctaEyebrow}</div>
+    <div>
+      <h3 class="service-grid__cta-title">{services.ctaTitle}</h3>
+      <p class="service-grid__cta-description mono">{services.ctaDescription}</p>
+    </div>
+  </a>
+</div>
+
+<style>
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  .service-grid__cta {
+    background: var(--accent);
+    color: var(--onAccent);
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    padding: clamp(24px, 3vw, 34px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 180px;
+  }
+  .service-grid__cta-eyebrow {
+    font-size: 11px;
+    opacity: .7;
+  }
+  .service-grid__cta-title {
+    color: var(--onAccent);
+  }
+  .service-grid__cta-description {
+    margin: 12px 0 0;
+    font-size: 13px;
+    opacity: .85;
+  }
+</style>

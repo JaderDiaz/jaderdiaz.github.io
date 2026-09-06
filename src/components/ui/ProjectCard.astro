@@ -1,0 +1,48 @@
+---
+import PlaceholderImage from './PlaceholderImage.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  tech: string;
+  tags: 'web' | 'cloud' | 'bots';
+  screenshotCaption: string;
+}
+const { title, description, tech, tags, screenshotCaption } = Astro.props;
+---
+
+<article data-reveal data-lift data-tags={tags} class="project-card">
+  <PlaceholderImage caption={screenshotCaption} aspectRatio="16/10" class="project-card__image" />
+  <div class="project-card__body">
+    <h3>{title}</h3>
+    <p class="project-card__description">{description}</p>
+    <p class="project-card__tech mono">{tech}</p>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    border: 1px solid var(--line);
+    background: var(--card);
+    border-radius: 2px;
+  }
+  .project-card :global(.project-card__image) {
+    border: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .project-card__body {
+    padding: 22px;
+    border-top: 1px solid var(--line2);
+  }
+  .project-card__description {
+    margin: 8px 0 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  .project-card__tech {
+    margin: 12px 0 0;
+    font-size: 11px;
+    color: var(--accent);
+  }
+</style>

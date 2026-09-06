@@ -1,0 +1,17 @@
+---
+import type { SiteContent } from '../../i18n/content';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ExperienceTimeline from './ExperienceTimeline.astro';
+
+interface Props {
+  experience: SiteContent['experience'];
+}
+const { experience } = Astro.props;
+---
+
+<section id="experiencia" class="section">
+  <div class="wrap">
+    <SectionHeading eyebrow={experience.eyebrow} />
+    <ExperienceTimeline experience={experience} />
+  </div>
+</section>

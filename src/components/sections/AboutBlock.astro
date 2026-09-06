@@ -1,0 +1,50 @@
+---
+import type { SiteContent } from '../../i18n/content';
+import SectionHeading from '../ui/SectionHeading.astro';
+
+interface Props {
+  about: SiteContent['about'];
+}
+const { about } = Astro.props;
+---
+
+<div>
+  <SectionHeading eyebrow={about.eyebrow} class="about-block__eyebrow" />
+  {about.paragraphs.map((p, i) => (
+    <p class:list={['about-block__paragraph', i === 0 && 'about-block__paragraph--lead']}>{p}</p>
+  ))}
+  <div class="about-block__skills mono">
+    {about.softSkills.map((skill, i) => (
+      <>
+        {i > 0 && <span>·</span>}
+        <span>{skill}</span>
+      </>
+    ))}
+  </div>
+</div>
+
+<style>
+  .about-block__eyebrow {
+    margin-bottom: 26px;
+  }
+  .about-block__paragraph {
+    margin: 18px 0 0;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  .about-block__paragraph--lead {
+    margin-top: 0;
+    font-size: clamp(18px, 1.6vw, 20px);
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .about-block__skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+    font-size: 12px;
+    color: var(--faint);
+  }
+</style>

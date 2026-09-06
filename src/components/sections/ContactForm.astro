@@ -1,0 +1,271 @@
+---
+import type { SiteContent } from '../../i18n/content';
+
+interface Props {
+  form: SiteContent['contact']['form'];
+}
+const { form } = Astro.props;
+---
+
+<form id="contact-form" data-reveal class="contact-form mono" novalidate>
+  <div>
+    <div class="contact-form__label">{form.name}</div>
+    <input name="nombre" required placeholder={form.namePlaceholder} />
+    <div data-error-for="nombre" class="contact-form__error" hidden>{form.errorRequired}</div>
+  </div>
+  <div>
+    <div class="contact-form__label">{form.email}</div>
+    <input name="correo" type="email" required placeholder={form.emailPlaceholder} />
+    <div data-error-for="correo" class="contact-form__error" hidden>{form.errorEmail}</div>
+  </div>
+  <div>
+    <div class="contact-form__label">{form.projectType}</div>
+    <div class="contact-form__chips" data-chips>
+      {form.projectTypes.map((type, i) => (
+        <span
+          data-chip
+          data-other={type === form.otherLabel ? 'true' : undefined}
+          data-active={i === 0 ? 'true' : 'false'}
+        >{type}</span>
+      ))}
+    </div>
+    <select class="contact-form__select" data-type-select aria-label={form.projectType}>
+      {form.projectTypes.map((type) => (
+        <option
+          value={type}
+          data-other={type === form.otherLabel ? 'true' : undefined}
+          selected={type === form.projectTypes[0]}
+        >{type}</option>
+      ))}
+    </select>
+    <div data-other-field hidden class="contact-form__other">
+      <input name="otro" placeholder={form.otherPlaceholder} />
+      <div data-error-for="otro" class="contact-form__error" hidden>{form.errorRequired}</div>
+    </div>
+    <input type="hidden" name="tipo" value={form.projectTypes[0]} />
+    <input type="hidden" name="es_otro" value="false" />
+  </div>
+  <div>
+    <div class="contact-form__label">{form.message}</div>
+    <textarea name="mensaje" required rows="4" placeholder={form.messagePlaceholder}></textarea>
+    <div data-error-for="mensaje" class="contact-form__error" hidden>{form.errorRequired}</div>
+  </div>
+  <button type="submit" data-cta class="contact-form__submit">{form.submit}</button>
+  <div data-status="success" hidden class="contact-form__status contact-form__status--success">
+    {form.successMessage}
+  </div>
+  <div data-status="error" hidden class="contact-form__status contact-form__status--error">
+    {form.errorMessage}
+  </div>
+</form>
+
+<style>
+  .contact-form {
+    border: 1px solid rgba(242, 243, 241, .18);
+    border-radius: 2px;
+    padding: clamp(22px, 3vw, 32px);
+    display: grid;
+    gap: 18px;
+    font-size: 12px;
+  }
+  .contact-form__label {
+    color: rgba(242, 243, 241, .5);
+    margin-bottom: 8px;
+  }
+  .contact-form input,
+  .contact-form textarea {
+    color: #F2F3F1;
+  }
+  .contact-form input {
+    border-bottom: 1px solid rgba(242, 243, 241, .25);
+    padding-bottom: 10px;
+  }
+  .contact-form textarea {
+    border: 1px solid rgba(242, 243, 241, .25);
+    padding: 12px;
+    resize: vertical;
+  }
+  .contact-form__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .contact-form__chips [data-chip] {
+    padding: 8px 12px;
+    border: 1px solid rgba(242, 243, 241, .25);
+    border-radius: 2px;
+    cursor: pointer;
+    user-select: none;
+    transition: background .25s ease, color .25s ease, border-color .25s ease, transform .2s ease;
+  }
+  .contact-form__chips [data-chip]:hover {
+    transform: translateY(-2px);
+  }
+  .contact-form__chips [data-chip][data-active="true"] {
+    border: 1px solid rgba(127, 166, 217, .6);
+    color: #7FA6D9;
+  }
+  .contact-form__select {
+    display: none;
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    color: #F2F3F1;
+    border: 1px solid rgba(242, 243, 241, .25);
+    border-radius: 2px;
+    font-family: inherit;
+    font-size: 12px;
+  }
+  .contact-form__select option {
+    color: #10141A;
+  }
+  .contact-form__other {
+    margin-top: 12px;
+  }
+
+  @media (max-width: 640px) {
+    .contact-form__chips {
+      display: none;
+    }
+    .contact-form__select {
+      display: block;
+    }
+  }
+  .contact-form__submit {
+    padding: 15px 26px;
+    background: #7FA6D9;
+    color: #0F1722;
+    border: 0;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .contact-form__status {
+    padding: 14px;
+    border: 1px solid #7FA6D9;
+    color: #7FA6D9;
+    text-align: center;
+  }
+  .contact-form__status--error {
+    border-color: #E08585;
+    color: #E08585;
+  }
+  .contact-form__error {
+    color: #E08585;
+    font-size: 11px;
+    margin-top: 6px;
+  }
+  .contact-form input[data-invalid="true"],
+  .contact-form textarea[data-invalid="true"] {
+    border-color: #E08585;
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  if (form) {
+    const chips = Array.from(form.querySelectorAll<HTMLElement>('[data-chip]'));
+    const typeSelect = form.querySelector<HTMLSelectElement>('[data-type-select]');
+    const otherField = form.querySelector<HTMLElement>('[data-other-field]');
+    const otherInput = otherField?.querySelector<HTMLInputElement>('input') ?? null;
+    const typeInput = form.querySelector<HTMLInputElement>('input[name="tipo"]');
+    const esOtroInput = form.querySelector<HTMLInputElement>('input[name="es_otro"]');
+    const nameInput = form.querySelector<HTMLInputElement>('input[name="nombre"]');
+    const emailInput = form.querySelector<HTMLInputElement>('input[name="correo"]');
+    const messageInput = form.querySelector<HTMLTextAreaElement>('textarea[name="mensaje"]');
+    const successBox = form.querySelector<HTMLElement>('[data-status="success"]');
+    const errorBox = form.querySelector<HTMLElement>('[data-status="error"]');
+    const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function setFieldError(field: HTMLElement | null, name: string, hasError: boolean) {
+      if (field) field.dataset.invalid = hasError ? 'true' : 'false';
+      const box = form?.querySelector<HTMLElement>(`[data-error-for="${name}"]`);
+      if (box) box.hidden = !hasError;
+    }
+
+    function validate(): boolean {
+      let valid = true;
+
+      const nameOk = (nameInput?.value ?? '').trim().length > 0;
+      setFieldError(nameInput, 'nombre', !nameOk);
+      valid = valid && nameOk;
+
+      const emailOk = emailPattern.test((emailInput?.value ?? '').trim());
+      setFieldError(emailInput, 'correo', !emailOk);
+      valid = valid && emailOk;
+
+      const messageOk = (messageInput?.value ?? '').trim().length > 0;
+      setFieldError(messageInput, 'mensaje', !messageOk);
+      valid = valid && messageOk;
+
+      const isOtherActive = esOtroInput?.value === 'true';
+      const otherOk = !isOtherActive || (otherInput?.value ?? '').trim().length > 0;
+      setFieldError(otherInput, 'otro', !otherOk);
+      valid = valid && otherOk;
+
+      return valid;
+    }
+
+    function setType(label: string, isOther: boolean, focusOther: boolean) {
+      chips.forEach((c) => (c.dataset.active = c.textContent === label ? 'true' : 'false'));
+      if (typeSelect) typeSelect.value = label;
+      if (typeInput) typeInput.value = label;
+      if (esOtroInput) esOtroInput.value = isOther ? 'true' : 'false';
+
+      if (otherField) {
+        otherField.hidden = !isOther;
+        if (otherInput) {
+          if (isOther) {
+            if (focusOther) otherInput.focus();
+          } else {
+            otherInput.value = '';
+            setFieldError(otherInput, 'otro', false);
+          }
+        }
+      }
+    }
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const label = chip.textContent ?? '';
+        setType(label, chip.hasAttribute('data-other'), true);
+      });
+    });
+
+    typeSelect?.addEventListener('change', () => {
+      const selected = typeSelect.selectedOptions[0];
+      const isOther = selected?.hasAttribute('data-other') ?? false;
+      setType(selected?.value ?? '', isOther, true);
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (successBox) successBox.hidden = true;
+      if (errorBox) errorBox.hidden = true;
+
+      if (!validate()) return;
+
+      if (submitBtn) submitBtn.disabled = true;
+      try {
+        const formData = new FormData(form);
+        const res = await fetch('/api/contact/', { method: 'POST', body: formData });
+        if (!res.ok) throw new Error('request_failed');
+        if (successBox) successBox.hidden = false;
+        form.reset();
+        chips.forEach((c, i) => (c.dataset.active = i === 0 ? 'true' : 'false'));
+        if (typeSelect) typeSelect.selectedIndex = 0;
+        if (otherField) otherField.hidden = true;
+        if (esOtroInput) esOtroInput.value = 'false';
+        [nameInput, emailInput, messageInput, otherInput].forEach((el) => {
+          if (el) el.dataset.invalid = 'false';
+        });
+      } catch {
+        if (errorBox) errorBox.hidden = false;
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  }
+</script>

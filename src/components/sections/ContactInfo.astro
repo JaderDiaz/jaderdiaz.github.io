@@ -1,0 +1,85 @@
+---
+import type { SiteContent } from '../../i18n/content';
+
+interface Props {
+  contact: SiteContent['contact'];
+}
+const { contact } = Astro.props;
+---
+
+<div>
+  <div class="contact-info__eyebrow mono">{contact.eyebrow}</div>
+  <h2 class="contact-info__title" set:html={contact.title} />
+  <p class="contact-info__description">{contact.description}</p>
+  <div class="contact-info__list mono">
+    <div class="contact-info__row">
+      <span class="contact-info__label">{contact.infoLabels.email}</span>
+      <a href="mailto:info@jaderdiaz.com">info@jaderdiaz.com</a>
+    </div>
+    <div class="contact-info__row">
+      <span class="contact-info__label">{contact.infoLabels.phone}</span>
+      <a href="tel:+573046341139">(+57) 304 634 1139</a>
+    </div>
+    <div class="contact-info__row">
+      <span class="contact-info__label">{contact.infoLabels.phone}</span>
+      <a href="tel:+573116832776">(+57) 311 683 2776</a>
+    </div>
+    <div class="contact-info__row">
+      <span class="contact-info__label">{contact.infoLabels.social}</span>
+      <span class="contact-info__social">
+        <a href="https://linkedin.com/in/jlde412" target="_blank" rel="noopener">linkedin.com/in/jlde412</a>
+        <a href="https://github.com/JaderDiaz" target="_blank" rel="noopener">github.com/JaderDiaz</a>
+      </span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .contact-info__eyebrow {
+    font-size: 12px;
+    letter-spacing: .16em;
+    color: #7FA6D9;
+    margin-bottom: 26px;
+  }
+  .contact-info__title {
+    margin: 0;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -.03em;
+    color: inherit;
+  }
+  .contact-info__description {
+    margin: 20px 0 0;
+    max-width: 420px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: rgba(242, 243, 241, .7);
+  }
+  .contact-info__list {
+    margin-top: 32px;
+    font-size: 14px;
+    display: grid;
+    gap: 12px;
+  }
+  .contact-info__row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .contact-info__label {
+    color: rgba(242, 243, 241, .5);
+    width: 80px;
+  }
+  .contact-info__row a {
+    color: #F2F3F1;
+  }
+  .contact-info__social {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .contact-info__social a {
+    color: #7FA6D9;
+  }
+</style>

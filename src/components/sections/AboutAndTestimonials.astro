@@ -1,0 +1,55 @@
+---
+import type { SiteContent } from '../../i18n/content';
+import SectionHeading from '../ui/SectionHeading.astro';
+import TestimonialItem from '../ui/TestimonialItem.astro';
+import AboutBlock from './AboutBlock.astro';
+
+interface Props {
+  about: SiteContent['about'];
+  testimonials: SiteContent['testimonials'];
+}
+const { about, testimonials } = Astro.props;
+---
+
+<section id="sobre-mi" class="section">
+  <div class="wrap about-testimonials">
+    <AboutBlock about={about} />
+    <div>
+      <div class="about-testimonials__testimonials-header">
+        <SectionHeading eyebrow={testimonials.eyebrow} class="about-testimonials__eyebrow" />
+        <span class="about-testimonials__pending mono">{testimonials.pending}</span>
+      </div>
+      <div class="about-testimonials__list">
+        {testimonials.items.map((t, i) => (
+          <TestimonialItem quote={t.quote} attribution={t.attribution} emphasized={i === 0} />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: clamp(32px, 5vw, 64px);
+  }
+  .about-testimonials__testimonials-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 26px;
+  }
+  .about-testimonials__eyebrow {
+    margin-bottom: 0;
+  }
+  .about-testimonials__pending {
+    font-size: 11px;
+    color: var(--faint);
+  }
+  .about-testimonials__list {
+    display: grid;
+    gap: 16px;
+  }
+</style>

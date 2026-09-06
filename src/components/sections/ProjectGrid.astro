@@ -1,0 +1,29 @@
+---
+import type { SiteContent } from '../../i18n/content';
+import ProjectCard from '../ui/ProjectCard.astro';
+
+interface Props {
+  projects: SiteContent['projects'];
+}
+const { projects } = Astro.props;
+---
+
+<div class="project-grid">
+  {projects.items.map((p) => (
+    <ProjectCard
+      title={p.title}
+      description={p.description}
+      tech={p.tech}
+      tags={p.tags}
+      screenshotCaption={projects.screenshotCaption}
+    />
+  ))}
+</div>
+
+<style>
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+</style>

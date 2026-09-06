@@ -1,0 +1,69 @@
+---
+import type { SiteContent } from '../../i18n/content';
+
+interface Props {
+  filters: SiteContent['projects']['filters'];
+}
+const { filters } = Astro.props;
+---
+
+<div class="project-filter-bar mono">
+  {filters.map((f, i) => (
+    <span
+      data-filter={f.key}
+      class="project-filter-bar__chip"
+      data-active={i === 0 ? 'true' : 'false'}
+    >{f.label}</span>
+  ))}
+</div>
+
+<style>
+  .project-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 26px;
+    font-size: 12px;
+  }
+  .project-filter-bar__chip {
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    cursor: pointer;
+    user-select: none;
+    color: var(--faint);
+    transition: background .25s ease, color .25s ease, border-color .25s ease, transform .2s ease;
+  }
+  .project-filter-bar__chip:hover {
+    transform: translateY(-2px);
+  }
+  .project-filter-bar__chip[data-active="true"] {
+    background: var(--accent);
+    color: var(--onAccent);
+    border-color: transparent;
+  }
+</style>
+
+<script>
+  // Progressive enhancement: without JS, every project card is already
+  // visible (no inline display:none in markup), so filtering is optional.
+  const chips = Array.from(document.querySelectorAll<HTMLElement>('[data-filter]'));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-tags]'));
+
+  function setFilter(tag: string) {
+    chips.forEach((chip) => {
+      chip.dataset.active = chip.getAttribute('data-filter') === tag ? 'true' : 'false';
+    });
+    cards.forEach((card) => {
+      const show = tag === 'all' || card.getAttribute('data-tags') === tag;
+      card.hidden = !show;
+    });
+  }
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const tag = chip.getAttribute('data-filter');
+      if (tag) setFilter(tag);
+    });
+  });
+</script>
