@@ -13,9 +13,10 @@ export default defineConfig({
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],
+    // Spanish (default) lives unprefixed at "/" — no redirect page, no flash.
+    // English stays prefixed at "/en/".
     routing: {
-      prefixDefaultLocale: true,
-      redirectToDefaultLocale: true,
+      prefixDefaultLocale: false,
     },
   },
   integrations: [

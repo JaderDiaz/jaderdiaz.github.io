@@ -13,7 +13,7 @@ const { lang, title, description, path } = Astro.props;
 const site = Astro.site ?? new URL('https://jaderdiaz.com');
 const cleanPath = path.replace(/^\/+/, '').replace(/\/+$/, '');
 
-const esUrl = new URL(`/es/${cleanPath}${cleanPath ? '/' : ''}`, site).toString();
+const esUrl = new URL(`/${cleanPath}${cleanPath ? '/' : ''}`, site).toString();
 const enUrl = new URL(`/en/${cleanPath}${cleanPath ? '/' : ''}`, site).toString();
 const canonical = lang === 'es' ? esUrl : enUrl;
 const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';

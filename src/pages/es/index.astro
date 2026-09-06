@@ -1,5 +1,6 @@
 ---
-import HomePage from '../../components/HomePage.astro';
+// Spanish is now unprefixed at "/" (see astro.config.mjs, prefixDefaultLocale:
+// false). This route only exists so old /es/ links don't 404.
+export const prerender = false;
+return Astro.redirect('/', 308);
 ---
-
-<HomePage lang="es" />

@@ -9,7 +9,7 @@ interface Props {
 
 const { lang, path } = Astro.props;
 const clean = path.replace(/^\/+/, '').replace(/\/+$/, '');
-const esHref = `/es/${clean}${clean ? '/' : ''}`;
+const esHref = clean ? `/${clean}/` : '/';
 const enHref = `/en/${clean}${clean ? '/' : ''}`;
 ---
 
