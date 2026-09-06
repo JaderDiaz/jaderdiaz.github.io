@@ -103,7 +103,7 @@ export interface SiteContent {
     eyebrow: string;
     title: string;
     description: string;
-    infoLabels: { email: string; phone: string; social: string };
+    infoLabels: { email: string; phone: string; whatsapp: string; social: string };
     form: {
       name: string;
       namePlaceholder: string;
@@ -127,6 +127,10 @@ export interface SiteContent {
     madeWithPrefix: string;
     madeWithSuffix: string;
     versionLabel: string;
+  };
+  whatsappFloat: {
+    ariaLabel: string;
+    tooltip: string;
   };
 }
 
@@ -349,7 +353,7 @@ const es: SiteContent = {
     eyebrow: '07 — CONTACTO',
     title: 'Cuéntame qué<br />necesitas construir.',
     description: 'Respondo el mismo día. Si prefieres, escríbeme directo por correo o WhatsApp.',
-    infoLabels: { email: 'email', phone: 'tel', social: 'redes' },
+    infoLabels: { email: 'email', phone: 'tel', whatsapp: 'whatsapp', social: 'redes' },
     form: {
       name: 'nombre',
       namePlaceholder: 'Jader Diaz',
@@ -383,6 +387,10 @@ const es: SiteContent = {
     madeWithPrefix: 'Hecho con',
     madeWithSuffix: 'en Medellín, Colombia',
     versionLabel: 'versión',
+  },
+  whatsappFloat: {
+    ariaLabel: 'Escríbeme por WhatsApp',
+    tooltip: 'Escríbeme por WhatsApp →',
   },
 };
 
@@ -603,7 +611,7 @@ const en: SiteContent = {
     eyebrow: '07 — CONTACT',
     title: 'Tell me what<br />you need to build.',
     description: "I reply the same day. If you prefer, write to me directly by email or WhatsApp.",
-    infoLabels: { email: 'email', phone: 'tel', social: 'social' },
+    infoLabels: { email: 'email', phone: 'tel', whatsapp: 'whatsapp', social: 'social' },
     form: {
       name: 'name',
       namePlaceholder: 'Jader Diaz',
@@ -637,6 +645,10 @@ const en: SiteContent = {
     madeWithPrefix: 'Made with',
     madeWithSuffix: 'in Medellín, Colombia',
     versionLabel: 'version',
+  },
+  whatsappFloat: {
+    ariaLabel: 'Message me on WhatsApp',
+    tooltip: 'Message me on WhatsApp →',
   },
 };
 

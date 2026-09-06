@@ -10,6 +10,7 @@ import Experience from './sections/Experience.astro';
 import Projects from './sections/Projects.astro';
 import AboutAndTestimonials from './sections/AboutAndTestimonials.astro';
 import Contact from './sections/Contact.astro';
+import FloatingWhatsApp from './ui/FloatingWhatsApp.astro';
 import type { Lang } from '../i18n/content';
 import { getContent } from '../i18n/content';
 
@@ -39,4 +40,9 @@ const content = getContent(lang);
     <Contact contact={content.contact} footer={content.footer} />
   </main>
   <RevealObserver />
+  <FloatingWhatsApp
+    phone="573046341139"
+    ariaLabel={content.whatsappFloat.ariaLabel}
+    tooltip={content.whatsappFloat.tooltip}
+  />
 </Layout>

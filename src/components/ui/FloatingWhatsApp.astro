@@ -1,0 +1,110 @@
+---
+interface Props {
+  phone: string; // digits only, e.g. "573046341139"
+  ariaLabel: string;
+  tooltip: string;
+}
+const { phone, ariaLabel, tooltip } = Astro.props;
+---
+
+<a
+  class="whatsapp-float"
+  href={`https://wa.me/${phone}`}
+  target="_blank"
+  rel="noopener"
+  aria-label={ariaLabel}
+>
+  <span class="whatsapp-float__ring" aria-hidden="true"></span>
+  <span class="whatsapp-float__ring whatsapp-float__ring--delayed" aria-hidden="true"></span>
+  <span class="whatsapp-float__bubble">
+    <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
+      <path
+        fill="currentColor"
+        d="M16.004 3C9.377 3 4 8.373 4 15c0 2.34.674 4.523 1.84 6.37L4 29l7.82-1.812A11.94 11.94 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm0 21.75a9.7 9.7 0 0 1-4.95-1.36l-.355-.21-4.64 1.075 1.104-4.523-.232-.37A9.68 9.68 0 0 1 5.25 15c0-5.936 4.818-10.75 10.754-10.75S26.75 9.064 26.75 15 21.94 24.75 16.004 24.75Zm5.55-7.44c-.304-.152-1.797-.887-2.076-.988-.279-.102-.482-.152-.686.152-.203.305-.786.988-.964 1.19-.177.204-.355.229-.66.077-.304-.152-1.284-.474-2.446-1.518-.904-.807-1.514-1.803-1.692-2.108-.177-.305-.019-.47.133-.622.137-.137.304-.356.457-.534.152-.178.203-.305.305-.508.101-.204.05-.381-.026-.534-.076-.152-.686-1.655-.94-2.267-.247-.596-.499-.515-.686-.524l-.585-.01c-.203 0-.533.076-.812.38-.279.305-1.066 1.042-1.066 2.541 0 1.499 1.091 2.947 1.243 3.15.152.203 2.148 3.28 5.204 4.6.727.314 1.294.501 1.736.641.729.232 1.393.199 1.918.121.585-.087 1.797-.735 2.05-1.445.254-.71.254-1.318.178-1.445-.076-.127-.279-.203-.583-.355Z"
+      />
+    </svg>
+  </span>
+  <span class="whatsapp-float__tooltip" role="tooltip">{tooltip}</span>
+</a>
+
+<style>
+  .whatsapp-float {
+    position: fixed;
+    right: clamp(16px, 4vw, 28px);
+    bottom: clamp(16px, 4vw, 28px);
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    width: 58px;
+    height: 58px;
+    animation: whatsapp-float-bob 3.2s ease-in-out infinite;
+  }
+  .whatsapp-float__bubble {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #25d366;
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(15, 23, 34, .28);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .whatsapp-float:hover .whatsapp-float__bubble {
+    transform: scale(1.08);
+    box-shadow: 0 10px 28px rgba(15, 23, 34, .34);
+  }
+  .whatsapp-float__ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #25d366;
+    opacity: .55;
+    animation: whatsapp-float-ping 2.6s ease-out infinite;
+  }
+  .whatsapp-float__ring--delayed {
+    animation-delay: 1.3s;
+  }
+  @keyframes whatsapp-float-ping {
+    0% { transform: scale(1); opacity: .45; }
+    100% { transform: scale(1.9); opacity: 0; }
+  }
+  @keyframes whatsapp-float-bob {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -6px; }
+  }
+  .whatsapp-float__tooltip {
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    translate: 0 -50%;
+    white-space: nowrap;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 2px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease, translate .2s ease;
+  }
+  .whatsapp-float:hover .whatsapp-float__tooltip,
+  .whatsapp-float:focus-visible .whatsapp-float__tooltip {
+    opacity: 1;
+    translate: -4px -50%;
+  }
+  @media (max-width: 640px) {
+    .whatsapp-float__tooltip { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .whatsapp-float,
+    .whatsapp-float__ring {
+      animation: none;
+    }
+    .whatsapp-float__ring { display: none; }
+  }
+</style>
